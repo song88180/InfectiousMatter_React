@@ -1,26 +1,61 @@
 import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import Container from '@material-ui/core/Container';
+import Typography from '@material-ui/core/Typography';
+import Box from '@material-ui/core/Box';
+import Link from '@material-ui/core/Link';
+import DrawerRight from './DrawerRight';
+import { makeStyles } from '@material-ui/core/styles';
+import Introduction from './Introduction';
+import WhyIMadeThis from './WhyIMadeThis';
+import Simulation from './Simulation';
+import data from './Simulation.json';
 
-function App() {
+
+const useStyles = makeStyles((theme) => ({
+  root: {
+    display: 'flex',
+  },
+  content: {
+    flexGrow: 1,
+    backgroundColor: theme.palette.background.default,
+    padding: theme.spacing(3,3,3,12),
+  },
+}));
+
+function Copyright() {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+    <div>
+      <Typography variant="body2" color="textSecondary" align="center">
+        {'Copyright © '}
+        <Link color="inherit" href="https://material-ui.com/">
+          Your Website
+        </Link>{' '}
+        {new Date().getFullYear()}
+        {'.'}
+      </Typography>
     </div>
   );
 }
 
-export default App;
+
+
+
+export default function App() {
+  const classes = useStyles();
+  return (
+    <div className={classes.root}>
+    <main className={classes.content}>
+      <Typography variant="h4">
+        Developing an Intuition for Pandemics
+      </Typography>
+      <Introduction />
+      <WhyIMadeThis />
+      <Simulation data={data[0]} />
+      <Simulation data={data[1]} />
+      <Simulation data={data[2]} />
+      <Copyright />
+    </main>
+    <DrawerRight />
+    </div>
+  );
+}

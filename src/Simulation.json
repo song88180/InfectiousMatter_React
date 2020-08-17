@@ -1,0 +1,30 @@
+[
+  {
+    "title": "Simple Agents in a Simple World",
+		"subtitle": "Each circle is an \"Agent\"",
+    "maintext": [
+      "An agent is just another word for an Individual in the simulation. In this world, agents are drawn as circles and move around in their world randomly. If they wander too far in one direction, they loop back around on the other end of the world.",
+      "Sometimes the agents bump into each other. It might help to imagine that represents seeing someone in an elevator, visiting a friend, or actually physically bumping into someone. In any case, we'll call these events Contacts."
+    ],
+		"sim_config":{}
+  },
+  {
+    "title": "Infection",
+    "subtitle": "We can expose a few organisms in this population",
+    "maintext": [
+      "First you'll see agents with a small orange border. Those are Exposed individuals, after some time they'll become Infected and turn red. The Infected agents are contagious, and if they bump into Susceptible (black border) agents, there is a chance they'll transmit the disease. Eventually, Infected organisms will recover and develop resistance to the disease. You'll see these Recovered agents with a green border in the simulation. We would call this, then, an Agent Based version of a traditional Susceptible, Exposed, Infectious, Recovered (SEIR) model.",
+      "Now, it's a little hard to see all the different colored borders on the agents, so lets start plotting what's going on in the population.",
+      "Scroll on to see the plot!"
+    ],
+    "sim_config":{}
+  },
+  {
+    "title": "Plotting",
+    "subtitle": "Because those little borders are hard to count",
+    "maintext": [
+      "Now that we have a plot, we also can see the timescale of the simulation. We could make the agents move faster or slower, depending on how much \"physical distancing\" we're trying to model. We could also increase or decrease the population size to simulate differences in location density. You'll get to play with these parameters in the full simulation later!"
+    ],
+    "sim_config":{}
+  }
+]
+
