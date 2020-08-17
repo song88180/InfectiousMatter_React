@@ -25,6 +25,68 @@
       "Now that we have a plot, we also can see the timescale of the simulation. We could make the agents move faster or slower, depending on how much \"physical distancing\" we're trying to model. We could also increase or decrease the population size to simulate differences in location density. You'll get to play with these parameters in the full simulation later!"
     ],
     "sim_config":{}
-  }
+  },
+  {
+    "title": "Multiple Locations",
+    "subtitle": "We don't all live in one little box!",
+    "maintext": [
+      "We, like most other organisms on earth, don't live in one big population. Instead we are spread across space in different cities or towns, and live in different neighborhoods or complexes. We model these sorts of things as a Metapopulation, where several subpopulations are connected through Migration of individuals. Migration in this abstract sense could represent visiting your friend in a neighboring city, for example.",
+      "The outcome of this simulation is Stochastic, which means every time you run it you might see something different. Maybe the disease spread slowly through each subpopulation, and you saw a prolonged (but flat) infected curve. Or maybe you saw multiple infection peaks as the disease spread quickly in multiple subpopulations at different times. When we are modeling disease dynamics, it's important to get a sense of the range of possible outcomes and how likely they are."
+    ],
+    "sim_config":{}
+  },
+  {
+    "title": "Contact Graph",
+    "subtitle": "(The 7 Degrees of Disease Transmission)",
+    "maintext": [
+      "One of the really neat features of agent based models is that we can keep track of information about each individual in the simulation. This lets us track, for example, who interacted with each other over some period of time. As you might imagine for disease transmission, this could be an incredibly useful bit of information.",
+      "We can represent these contacts with a Graph. Every node (colored square) in the rightmost visualization depicts one of the agents in the metapopulation. An edge (the line drawn between two nodes) represents a contact that happened within the last 7 days of the simulation.",
+      "You'll notice the agents form the same subpopulation tend to be more connected to each other than agents from other locations. You might hear these structures in graphs called Modules or Communities."
+    ],
+    "sim_config":{}
+  },
+  {
+    "title": "City and Countryside",
+    "subtitle": "Dense cities and more isolated rural areas are connected, and change the dynamics of disease spread",
+    "maintext": [
+      "As an example, lets make a metapopulation simulation of a metropolitan area. In a typical metropolitan area, there is a densely populated city surrounded by lower density towns and rural areas. Here, the dense city is in the top left (purple) and the density decreases as we move down and to the right.",
+      "You can easily see the effect of density on the contact graph, where the large city is a tight-knit network, and the lower density locations have more tendrils.",
+      "Thanks to some fantastic work by network scientists and epidemiologists, we know that disease dynamics in metapopulations are more likely to have multiple waves (or peaks) of infection, and more variation in how long it takes to resolve an epidemic. A recent (not yet peer-reviewed) pre-print also highlights the role of density in metapopulations on the intensity of COVID-19. Counterintuitively, lower density locations had more intense outbreaks, with most of the infections happening in a relatively short period of time. This observation is critical for our next steps in pandemic policy making.",
+      "Keep scrolling for an interactive exercise!"
+    ],
+    "sim_config":{}
+  },
+  {
+    "title": "Protecting Our Small Towns",
+    "subtitle": "",
+    "maintext": [
+      "Smaller and rural towns are preparing for a battle, but they do not have the same pool of resources that large cities have been mobilizing. People may not have easy access to hospitals, and many of the satellite hospital systems that typically service these locations don't have the required ICUs or equipment to treat COVID-19 patients. There are several good articles about these and concerns and more here, here, and here.",
+      "To get an intuition about how limiting movement between the cities and rural areas affects disease dynamics, try experimenting with the slider and see what happens when there is a lot of movement.",
+      {
+        "key":"Slider-visitor"
+      },
+      "If you cranked up the number of visitors, you probably saw an effect on the contact network and watched only a single peak of infections that hit the high and low density locations at similar times.",
+      "Now, try keeping movement limited to just a few visitors. You'll probably see a more spread out peak, and maybe even multiple peaks as the epidemic is no longer synchronized between locations.",
+      "Try running the simulation a few times to get a sense of the possible outcomes!",
+      {
+        "key":"Button-restart"
+      },
+      {
+        "key":"HowDoWeHelp"
+      },
+      "Remember that larger cities have most of the equipment and ICUs required to treat COVID-19. When the peaks are spread out or shifted in time, those hospitals can treat more patients coming from rural areas. If the small towns and big cities are synchronized, the hospital system will be far beyond capacity from the start.",
+      "While we're waiting for therapies for COVID-19, the best we can do is take physical distancing and stay-home orders seriously. Even when it seems like things are improving, or when our community hasn't had an outbreak yet, we are still protecting the spread beyond current hotspots into more vulnerable communities."
+    ],
+    "sim_config":{}
+  },
+  {
+    "title": "More Walkthroughs",
+    "subtitle": "",
+    "maintext": [
+      "Check out the next walkthrough on Small World Networks and their role in the spread of a disease!",
+      "Then, check out what evolution looks like, complete with phylogenetic networks!"
+    ],
+    "sim_config":{}
+  }  
 ]
 

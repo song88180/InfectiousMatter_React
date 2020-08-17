@@ -4,6 +4,9 @@ import Link from '@material-ui/core/Link';
 import SvgIcon from '@material-ui/core/SvgIcon';
 import Typography from '@material-ui/core/Typography';
 import Box from '@material-ui/core/Box';
+import Slider from '@material-ui/core/Slider';
+import Button from '@material-ui/core/Button';
+
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -14,6 +17,41 @@ const useStyles = makeStyles((theme) => ({
   }, 
 }));
 
+function Component_render(obj){
+  if(obj.key === "Slider-visitor"){
+    return(
+      <Box display="flex" mt={4}>
+        <Box mx={1}>
+          <Typography>Visitors Per Day: </Typography>
+        </Box>
+        <Box mx={1}>
+          <Slider
+            defaultValue={10}
+            aria-labelledby="discrete-slider"
+            valueLabelDisplay="on"
+            step={1}
+            marks
+            min={0}
+            max={30}
+            style={{width: 200}}
+          />
+        </Box>
+      </Box>
+    )
+  }
+  else if (obj.key == "Button-restart"){
+    return(
+      <Button variant="contained" color="primary">
+        RESTART
+      </Button>
+    )
+  }
+  else if (obj.key == "HowDoWeHelp"){
+    return(
+      <Typography variant='h5'>How Do We Help?</Typography>
+    )
+  }
+}
 
 export default function Simulation({data}) {
   const classes = useStyles();
@@ -25,11 +63,18 @@ export default function Simulation({data}) {
       <Typography variant='h5'>
         {data.subtitle}
       </Typography>
-      {data.maintext.map((p) => (
-        <Typography className={classes.mainp}>
-          {p}
-        </Typography>
-      ))}
+      {data.maintext.map((p) => {
+        if (typeof p === 'object'){
+          return(Component_render(p))
+        }
+        else{
+          return(
+            <Typography className={classes.mainp}>
+              {p}
+            </Typography>
+          )
+        }
+      })}
     </Box>
   );
 }

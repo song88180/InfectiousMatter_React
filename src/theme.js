@@ -26,6 +26,7 @@ const theme = createMuiTheme({
       "fontWeight": 400,
     },
     h5: {
+      "marginTop": 20,
       "marginBottom": 20,
     }
   },

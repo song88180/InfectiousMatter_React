@@ -50,9 +50,8 @@ export default function App() {
       </Typography>
       <Introduction />
       <WhyIMadeThis />
-      <Simulation data={data[0]} />
-      <Simulation data={data[1]} />
-      <Simulation data={data[2]} />
+
+      {data.map(data_ => <Simulation data={data_} />)} 
       <Copyright />
     </main>
     <DrawerRight />
