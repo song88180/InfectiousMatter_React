@@ -56,7 +56,7 @@ function Component_render(obj){
 export default function Simulation({data}) {
   const classes = useStyles();
   return (
-    <Box my={4} className={classes.root}>
+    <Box my={4} className={classes.root} minHeight={750}>
       <Typography variant='h4'>
         {data.title}
       </Typography>
