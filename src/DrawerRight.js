@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import Link from '@material-ui/core/Link';
 
@@ -30,11 +30,10 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-function LightBulbIcon(props) {
+function DrawerRight(props) {
+  
   const classes = useStyles();
   const navlist = ['Introduction', 'Simple Agents', 'Infections', 'Plots', 'Metapopulations', 'Contact Graphs', 'Example: Cities and Countryside'];
-
-
   return (
       <Drawer
         className={classes.drawer}
@@ -47,7 +46,7 @@ function LightBulbIcon(props) {
         <div className={classes.toolbar} />
         <List>
           {navlist.map((text, index) => (
-            <ListItem button key={text}>
+            <ListItem button selected={props.index === index} key={text}>
               <ListItemText primary={text} />
             </ListItem>
           ))}
@@ -56,4 +55,4 @@ function LightBulbIcon(props) {
   );
 }
 
-export default LightBulbIcon;
+export default DrawerRight;

@@ -28,7 +28,7 @@ const useStyles = makeStyles((theme) => ({
   content: {
     flexGrow: 1,
     backgroundColor: theme.palette.background.default,
-    padding: theme.spacing(3,3,3,12),
+    padding: theme.spacing(3,3,3,3),
   },
 }));
 
@@ -56,48 +56,48 @@ export default function App() {
   };
 
   return (
-    <div className={classes.root}>
+    <Box mx={12} className={classes.root}>
     <main className={classes.content}>
       <Typography variant="h4">
         Developing an Intuition for Pandemics
       </Typography>
       
       <Scrollama onStepEnter={onStepEnter} debug>
-        <Step data={1}>
+        <Step data={0}>
           <div> <Introduction /> </div>
         </Step>
-        <Step data={2}>
+        <Step data={0}>
           <div> <WhyIMadeThis /> </div>
         </Step>
-        <Step data={3}>
+        <Step data={1}>
           <div> <Agents /> </div>
         </Step>
-        <Step data={4}>
+        <Step data={2}>
           <div> <Infection /> </div>
         </Step>
-        <Step data={5}>
+        <Step data={3}>
           <div> <Plotting /> </div>
         </Step>
-        <Step data={6}>
+        <Step data={4}>
           <div> <MultiLoc /> </div>
         </Step>
-        <Step data={7}>
+        <Step data={5}>
           <div> <Graph /> </div>
         </Step>
-        <Step data={8}>
+        <Step data={6}>
           <div> <CityCountryside /> </div>
         </Step>
-        <Step data={9}>
+        <Step data={7}>
           <div> <Protecting /> </div>
         </Step>
-        <Step data={10}>
+        <Step data={8}>
           <div> <Walkthroughs /> </div>
         </Step>
       </Scrollama>
       
       <Copyright />
     </main>
-    <DrawerRight />
-    </div>
+    <DrawerRight index={currentStepIndex} />
+    </Box>
   );
 }
