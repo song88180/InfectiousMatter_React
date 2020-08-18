@@ -17,46 +17,10 @@ const useStyles = makeStyles((theme) => ({
   }, 
 }));
 
-function Component_render(obj){
-  if(obj.key === "Slider-visitor"){
-    return(
-      <Box display="flex" mt={4}>
-        <Box mx={1}>
-          <Typography>Visitors Per Day: </Typography>
-        </Box>
-        <Box mx={1}>
-          <Slider
-            defaultValue={10}
-            aria-labelledby="discrete-slider"
-            valueLabelDisplay="on"
-            step={1}
-            marks
-            min={0}
-            max={30}
-            style={{width: 200}}
-          />
-        </Box>
-      </Box>
-    )
-  }
-  else if (obj.key == "Button-restart"){
-    return(
-      <Button variant="contained" color="primary">
-        RESTART
-      </Button>
-    )
-  }
-  else if (obj.key == "HowDoWeHelp"){
-    return(
-      <Typography variant='h5'>How Do We Help?</Typography>
-    )
-  }
-}
-
-export default function Simulation({data}) {
+export default function Simulation(props) {
   const classes = useStyles();
   return (
-    <Box my={4} className={classes.root} minHeight={750}>
+    <Box my={4} className={classes.root} minHeight={750} ref={props.myRef}>
       <Typography variant='h4'>
         Simple Agents in a Simple World
       </Typography>

@@ -17,10 +17,10 @@ const useStyles = makeStyles((theme) => ({
   }, 
 }));
 
-export default function Simulation({data}) {
+export default function Simulation(props) {
   const classes = useStyles();
   return (
-    <Box my={4} className={classes.root} minHeight={750}>
+    <Box my={4} className={classes.root} minHeight={750} ref={props.myRef}>
       <Typography variant='h4'>
         Infection
       </Typography>

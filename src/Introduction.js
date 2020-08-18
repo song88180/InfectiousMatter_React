@@ -21,10 +21,10 @@ const useStyles = makeStyles((theme) => ({
   }
 }));
 
-export default function Introduction() {
+export default function Introduction(props) {
   const classes = useStyles();
   return (
-    <Box my={4} className={classes.root} color="textSecondary">
+    <Box my={4} className={classes.root} color="textSecondary" ref={props.myRef} >
       <Typography className={classes.mainp}>
         When you hear an emergency traffic report, you have an idea of how that news is going to affect your plans (when we still had plans, anyway). We have an intuition for the way traffic works and fits in with our daily routines, but we didn't get that intuition from just listening to traffic reports. Actually sitting in our car bumper-to-bumper taught us to plan ahead for road closures and generally when to avoid the highway.
       </Typography>

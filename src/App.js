@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useRef, createRef } from 'react';
 import Container from '@material-ui/core/Container';
 import Typography from '@material-ui/core/Typography';
 import Box from '@material-ui/core/Box';
@@ -49,7 +49,11 @@ function Copyright() {
 
 export default function App() {
   const classes = useStyles();
-  
+
+  //const refList = useRef([0,1,2,3,4,5,6,7,8].map(() => createRef()));
+    
+  const refList = useRef([]);
+
   const [currentStepIndex, setCurrentStepIndex] = useState(null);
   const onStepEnter = ({ data }) => {
     setCurrentStepIndex(data);
@@ -62,42 +66,41 @@ export default function App() {
         Developing an Intuition for Pandemics
       </Typography>
       
-      <Scrollama onStepEnter={onStepEnter} debug>
+      <Scrollama offset={0.5} onStepEnter={onStepEnter} debug>
         <Step data={0}>
-          <div> <Introduction /> </div>
+          <div> <Introduction myRef={el => (refList.current[0] = el)} /> </div>
         </Step>
         <Step data={0}>
           <div> <WhyIMadeThis /> </div>
         </Step>
         <Step data={1}>
-          <div> <Agents /> </div>
+          <div> <Agents myRef={el => (refList.current[1] = el)} /> </div>
         </Step>
         <Step data={2}>
-          <div> <Infection /> </div>
+          <div> <Infection myRef={el => (refList.current[2] = el)} /> </div>
         </Step>
         <Step data={3}>
-          <div> <Plotting /> </div>
+          <div> <Plotting myRef={el => (refList.current[3] = el)} /> </div>
         </Step>
         <Step data={4}>
-          <div> <MultiLoc /> </div>
+          <div> <MultiLoc myRef={el => (refList.current[4] = el)} /> </div>
         </Step>
         <Step data={5}>
-          <div> <Graph /> </div>
+          <div> <Graph myRef={el => (refList.current[5] = el)} /> </div>
         </Step>
         <Step data={6}>
-          <div> <CityCountryside /> </div>
+          <div> <CityCountryside myRef={el => (refList.current[6] = el)} /> </div>
         </Step>
         <Step data={7}>
-          <div> <Protecting /> </div>
+          <div> <Protecting myRef={el => (refList.current[7] = el)} /> </div>
         </Step>
         <Step data={8}>
-          <div> <Walkthroughs /> </div>
+          <div> <Walkthroughs myRef={el => (refList.current[8] = el)} /> </div>
         </Step>
       </Scrollama>
-      
       <Copyright />
     </main>
-    <DrawerRight index={currentStepIndex} />
+    <DrawerRight index={currentStepIndex} refList={refList} />
     </Box>
   );
 }

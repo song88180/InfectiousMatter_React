@@ -30,10 +30,27 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
+const scrollToRef = (ref) => {
+  window.scrollTo(0, ref.offsetTop);
+}
+
 function DrawerRight(props) {
   
   const classes = useStyles();
-  const navlist = ['Introduction', 'Simple Agents', 'Infections', 'Plots', 'Metapopulations', 'Contact Graphs', 'Example: Cities and Countryside'];
+  const navlist = [
+    'Introduction',
+    'Simple Agents',
+    'Infections',
+    'Plots',
+    'Metapopulations',
+    'Contact Graphs',
+    'Example: Cities and Countryside',
+    'Protecting Our Small Towns',
+    'More Walkthroughs'
+  ];
+
+
+
   return (
       <Drawer
         className={classes.drawer}
@@ -46,7 +63,12 @@ function DrawerRight(props) {
         <div className={classes.toolbar} />
         <List>
           {navlist.map((text, index) => (
-            <ListItem button selected={props.index === index} key={text}>
+            <ListItem
+              button
+              selected={props.index === index}
+              key={text}
+              onClick={() => scrollToRef(props.refList.current[index])}
+            >
               <ListItemText primary={text} />
             </ListItem>
           ))}
