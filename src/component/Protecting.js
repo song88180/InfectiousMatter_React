@@ -57,7 +57,7 @@ export default function Protecting(props) {
         If you cranked up the number of visitors, you probably saw an effect on the contact network and watched only a single peak of infections that hit the high and low density locations at similar times.
       </Typography>
       <Typography className={classes.mainp}>
-        Now, try keeping movement limited to just a few visitors. You'll probably see a more spread out peak, and maybe even multiple peaks as the epidemic is no longer synchronized between locations.
+        Now, try keeping movement limited to just a few visitors. You'll probably see a more spread out peak, and maybe even multiple peaks as the epidemic is no longer <b>synchronized</b> between locations.
       </Typography>
       <Typography className={classes.mainp}>
         Try running the simulation a few times to get a sense of the possible outcomes!

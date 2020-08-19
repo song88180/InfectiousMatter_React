@@ -30,7 +30,7 @@ export default function Simulation(props) {
         </Typography>
       </Fade>
       <Typography className={classes.mainp}>
-        First you'll see agents with a small orange border. Those are Exposed individuals, after some time they'll become Infected and turn red. The Infected agents are contagious, and if they bump into Susceptible (black border) agents, there is a chance they'll transmit the disease. Eventually, Infected organisms will recover and develop resistance to the disease. You'll see these Recovered agents with a green border in the simulation. We would call this, then, an Agent Based version of a traditional Susceptible, Exposed, Infectious, Recovered (SEIR) model.
+        First you'll see agents with a small orange border. Those are <b>Exposed</b> individuals, after some time they'll become <b>Infected</b> and turn red. The Infected agents are contagious, and if they bump into <b>Susceptible</b> (black border) agents, there is a chance they'll transmit the disease. Eventually, Infected organisms will recover and develop resistance to the disease. You'll see these <b>Recovered</b> agents with a green border in the simulation. We would call this, then, an Agent Based version of a traditional <b>Susceptible, Exposed, Infectious, Recovered</b> (SEIR) model.
       </Typography>
       <Typography className={classes.mainp}>
         Now, it's a little hard to see all the different colored borders on the agents, so lets start plotting what's going on in the population.

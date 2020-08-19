@@ -27,10 +27,10 @@ export default function MultiLoc(props) {
         </Typography>
       </Fade>
       <Typography className={classes.mainp}>
-        We, like most other organisms on earth, don't live in one big population. Instead we are spread across space in different cities or towns, and live in different neighborhoods or complexes. We model these sorts of things as a Metapopulation, where several subpopulations are connected through Migration of individuals. Migration in this abstract sense could represent visiting your friend in a neighboring city, for example.
+        We, like most other organisms on earth, don't live in one big population. Instead we are spread across space in different cities or towns, and live in different neighborhoods or complexes. We model these sorts of things as a <b>Metapopulation</b>, where several subpopulations are connected through <b>Migration</b> of individuals. Migration in this abstract sense could represent visiting your friend in a neighboring city, for example.
       </Typography>
       <Typography className={classes.mainp}>
-        The outcome of this simulation is Stochastic, which means every time you run it you might see something different. Maybe the disease spread slowly through each subpopulation, and you saw a prolonged (but flat) infected curve. Or maybe you saw multiple infection peaks as the disease spread quickly in multiple subpopulations at different times. When we are modeling disease dynamics, it's important to get a sense of the range of possible outcomes and how likely they are.
+        The outcome of this simulation is <b>Stochastic</b>, which means every time you run it you might see something different. Maybe the disease spread slowly through each subpopulation, and you saw a prolonged (but flat) infected curve. Or maybe you saw multiple infection peaks as the disease spread quickly in multiple subpopulations at different times. When we are modeling disease dynamics, it's important to get a sense of the range of possible outcomes and how likely they are.
       </Typography>
     </Box>
   );
