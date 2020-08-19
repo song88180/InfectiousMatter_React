@@ -70,31 +70,31 @@ export default function App() {
           <div> <Introduction myRef={el => (refList.current[0] = el)} /> </div>
         </Step>
         <Step data={1}>
-          <div> <WhyIMadeThis data={currentStepIndex}/> </div>
+          <div> <WhyIMadeThis myRef={el => (refList.current[1] = el)} data={currentStepIndex}/> </div>
         </Step>
         <Step data={2}>
-          <div> <Agents myRef={el => (refList.current[1] = el)} /> </div>
+          <div> <Agents myRef={el => (refList.current[2] = el)} data={currentStepIndex}/> </div>
         </Step>
         <Step data={3}>
-          <div> <Infection myRef={el => (refList.current[2] = el)} /> </div>
+          <div> <Infection myRef={el => (refList.current[3] = el)} data={currentStepIndex}/> </div>
         </Step>
         <Step data={4}>
-          <div> <Plotting myRef={el => (refList.current[3] = el)} /> </div>
+          <div> <Plotting myRef={el => (refList.current[4] = el)} data={currentStepIndex}/> </div>
         </Step>
         <Step data={5}>
-          <div> <MultiLoc myRef={el => (refList.current[4] = el)} /> </div>
+          <div> <MultiLoc myRef={el => (refList.current[5] = el)} data={currentStepIndex}/> </div>
         </Step>
         <Step data={6}>
-          <div> <Graph myRef={el => (refList.current[5] = el)} /> </div>
+          <div> <Graph myRef={el => (refList.current[6] = el)} data={currentStepIndex}/> </div>
         </Step>
         <Step data={7}>
-          <div> <CityCountryside myRef={el => (refList.current[6] = el)} /> </div>
+          <div> <CityCountryside myRef={el => (refList.current[7] = el)} data={currentStepIndex}/> </div>
         </Step>
         <Step data={8}>
-          <div> <Protecting myRef={el => (refList.current[7] = el)} /> </div>
+          <div> <Protecting myRef={el => (refList.current[8] = el)} data={currentStepIndex}/> </div>
         </Step>
         <Step data={9}>
-          <div> <Walkthroughs myRef={el => (refList.current[8] = el)} /> </div>
+          <div> <Walkthroughs myRef={el => (refList.current[9] = el)} /> </div>
         </Step>
       </Scrollama>
       <Copyright />

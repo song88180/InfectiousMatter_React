@@ -17,7 +17,7 @@ const useStyles = makeStyles((theme) => ({
   }, 
 }));
 
-export default function Simulation(props) {
+export default function Walkthroughs(props) {
   const classes = useStyles();
   return (
     <Box my={4} className={classes.root} minHeight={750} ref={props.myRef}>

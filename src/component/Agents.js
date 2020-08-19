@@ -1,12 +1,9 @@
 import React from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import Link from '@material-ui/core/Link';
-import SvgIcon from '@material-ui/core/SvgIcon';
 import Typography from '@material-ui/core/Typography';
 import Box from '@material-ui/core/Box';
-import Slider from '@material-ui/core/Slider';
-import Button from '@material-ui/core/Button';
-
+import Fade from '@material-ui/core/Fade';
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -17,16 +14,21 @@ const useStyles = makeStyles((theme) => ({
   }, 
 }));
 
-export default function Simulation(props) {
+export default function Agents(props) {
   const classes = useStyles();
+  
+  
+
   return (
     <Box my={4} className={classes.root} minHeight={750} ref={props.myRef}>
       <Typography variant='h4'>
         Simple Agents in a Simple World
       </Typography>
-      <Typography variant='h5'>
-        Each circle is an "Agent"
-      </Typography>
+      <Fade in={props.data === 2} timeout={1200}>
+        <Typography variant='h5'>
+          Each circle is an "Agent"
+        </Typography>
+      </Fade>
       <Typography className={classes.mainp}>
          An agent is just another word for an Individual in the simulation. In this world, agents are drawn as circles and move around in their world randomly. If they wander too far in one direction, they loop back around on the other end of the world.
       </Typography>

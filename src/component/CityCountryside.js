@@ -1,12 +1,9 @@
 import React from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import Link from '@material-ui/core/Link';
-import SvgIcon from '@material-ui/core/SvgIcon';
 import Typography from '@material-ui/core/Typography';
 import Box from '@material-ui/core/Box';
-import Slider from '@material-ui/core/Slider';
-import Button from '@material-ui/core/Button';
-
+import Fade from '@material-ui/core/Fade';
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -17,16 +14,18 @@ const useStyles = makeStyles((theme) => ({
   }, 
 }));
 
-export default function Simulation(props) {
+export default function CityCountryside(props) {
   const classes = useStyles();
   return (
     <Box my={4} className={classes.root} minHeight={750} ref={props.myRef}>
       <Typography variant='h4'>
         City and Countryside
       </Typography>
-      <Typography variant='h5'>
-        Dense cities and more isolated rural areas are connected, and change the dynamics of disease spread
-      </Typography>
+      <Fade in={props.data === 7} timeout={1200}>
+        <Typography variant='h5'>
+          Dense cities and more isolated rural areas are connected, and change the dynamics of disease spread
+        </Typography>
+      </Fade>
       <Typography className={classes.mainp}>
         As an example, lets make a metapopulation simulation of a metropolitan area. In a typical metropolitan area, there is a densely populated city surrounded by lower density towns and rural areas. Here, the dense city is in the top left (purple) and the density decreases as we move down and to the right.
       </Typography>

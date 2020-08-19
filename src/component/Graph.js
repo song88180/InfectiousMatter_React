@@ -1,12 +1,9 @@
 import React from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import Link from '@material-ui/core/Link';
-import SvgIcon from '@material-ui/core/SvgIcon';
 import Typography from '@material-ui/core/Typography';
 import Box from '@material-ui/core/Box';
-import Slider from '@material-ui/core/Slider';
-import Button from '@material-ui/core/Button';
-
+import Fade from '@material-ui/core/Fade';
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -24,9 +21,11 @@ export default function Simulation(props) {
       <Typography variant='h4'>
         Contact Graph
       </Typography>
-      <Typography variant='h5'>
-        (The 7 Degrees of Disease Transmission)
-      </Typography>
+      <Fade in={props.data === 6} timeout={1200}>
+        <Typography variant='h5'>
+          (The 7 Degrees of Disease Transmission)
+        </Typography>
+      </Fade>
       <Typography className={classes.mainp}>
         One of the really neat features of agent based models is that we can keep track of information about each individual in the simulation. This lets us track, for example, who interacted with each other over some period of time. As you might imagine for disease transmission, this could be an incredibly useful bit of information.
       </Typography>

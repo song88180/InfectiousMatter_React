@@ -8,10 +8,7 @@ import Box from '@material-ui/core/Box';
 //import CardMedia from '@material-ui/core/CardMedia';
 import photo from '../assets/lz_greenhouse_small.jpeg';
 
-
-import Switch from '@material-ui/core/Switch';
 import Slide from '@material-ui/core/Slide';
-import FormControlLabel from '@material-ui/core/FormControlLabel';
 
 
 
@@ -31,19 +28,19 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 
-export default function WhyIMadeThis({data}) {
+export default function WhyIMadeThis(props) {
 
   const [checked, setChecked] = useState(false);
 
   useEffect(() => {
-    if (data === 1){
+    if (props.data === 1){
       setChecked(true);
     }
-  },[data]);
+  },[props.data]);
 
   const classes = useStyles();
   return (
-    <Box my={4} className={classes.root} color="textSecondary">
+    <Box my={4} className={classes.root} color="textSecondary" ref={props.myRef} >
       <Typography variant='h5'>
         Why I Made This
       </Typography>
