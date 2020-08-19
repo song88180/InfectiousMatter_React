@@ -39,6 +39,7 @@ function DrawerRight(props) {
   const classes = useStyles();
   const navlist = [
     'Introduction',
+    'Why I made this',
     'Simple Agents',
     'Infections',
     'Plots',

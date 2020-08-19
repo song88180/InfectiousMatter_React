@@ -4,8 +4,8 @@ import Link from '@material-ui/core/Link';
 import SvgIcon from '@material-ui/core/SvgIcon';
 import Typography from '@material-ui/core/Typography';
 import Box from '@material-ui/core/Box';
-//import Image from 'material-ui-image';
-import teaser from './assets/teaser.png';
+import Image from 'material-ui-image';
+import teaser from '../assets/teaser.png';
 
 
 const useStyles = makeStyles((theme) => ({
@@ -18,6 +18,13 @@ const useStyles = makeStyles((theme) => ({
   img: {
     width: "100%",
     height: "auto",
+  },
+  hl: {
+    backgroundColor: "#faa05a",
+    color: "#fff",
+    fontSize:".875rem",
+    padding: "0 10px",
+    display: "inline-block",
   }
 }));
 
@@ -34,12 +41,12 @@ export default function Introduction(props) {
       <Typography className={classes.mainp}>
         What if you could watch virtual epidemics unfold directly in your web browser to build that intuition rather than waiting around and learning by making mistakes and dealing with their fallout? Imagine if new pandemic plans and policies came with an interactive simulation that demonstrated (at least virtually) their intended consequences.
       </Typography>
-      <img
-        className={classes.img}
+      <Image
+        aspectRatio={3}
         src={teaser}
       />
       <Typography className={classes.mainp}>
-        DISCLAIMER I am not an Epidemiologist or Public Health expert. This is not designed to be a predictive simulation of COVID-19. It is a simple model to understand and visualize basic disease dynamics.
+        <span className={classes.hl}>DISCLAIMER</span> I am not an Epidemiologist or Public Health expert. This is not designed to be a predictive simulation of COVID-19. It is a simple model to understand and visualize basic disease dynamics.
       </Typography>
     </Box>
   );

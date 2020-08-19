@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import Link from '@material-ui/core/Link';
 import SvgIcon from '@material-ui/core/SvgIcon';
@@ -6,7 +6,14 @@ import Typography from '@material-ui/core/Typography';
 import Box from '@material-ui/core/Box';
 //import Image from 'material-ui-image';
 //import CardMedia from '@material-ui/core/CardMedia';
-import photo from './assets/lz_greenhouse_small.jpeg';
+import photo from '../assets/lz_greenhouse_small.jpeg';
+
+
+import Switch from '@material-ui/core/Switch';
+import Slide from '@material-ui/core/Slide';
+import FormControlLabel from '@material-ui/core/FormControlLabel';
+
+
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -18,23 +25,39 @@ const useStyles = makeStyles((theme) => ({
   photo: {
     height: "450px",
     width: "auto",
+    "box-shadow":"0 4px 8px 0 rgba(0, 0, 0, 0.5), 0 6px 20px 0 rgba(0, 0, 0, 0.3)",
     margin: theme.spacing(0, 5, 4, 0),
-  }
+  },
 }));
 
-export default function Introduction() {
+
+export default function WhyIMadeThis({data}) {
+
+  const [checked, setChecked] = useState(false);
+
+  useEffect(() => {
+    if (data === 1){
+      setChecked(true);
+    }
+  },[data]);
+
   const classes = useStyles();
   return (
     <Box my={4} className={classes.root} color="textSecondary">
       <Typography variant='h5'>
         Why I Made This
       </Typography>
-      <div style={{ float: "left" }}>
-        <img
-          className={classes.photo}
-          src={photo}
-        />
+    
+      <div style={{ float: "left",height:"487px",width:"356.9px"}}>
+        <Slide direction="right" timeout={1000} in={checked}>
+          <img
+            className={classes.photo}
+            src={photo}
+          />
+        </Slide>
       </div>
+
+    
       <div>
         <Typography className={classes.mainp}>
           <Link href="https://zeeelab.com/">

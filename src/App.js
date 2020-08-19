@@ -1,24 +1,23 @@
 import React, { useState, useRef, createRef } from 'react';
+import { Scrollama, Step } from 'react-scrollama';
 import Container from '@material-ui/core/Container';
 import Typography from '@material-ui/core/Typography';
 import Box from '@material-ui/core/Box';
 import Link from '@material-ui/core/Link';
-import DrawerRight from './DrawerRight';
 import { makeStyles } from '@material-ui/core/styles';
-import Introduction from './Introduction';
-import WhyIMadeThis from './WhyIMadeThis';
-import Simulation from './Simulation';
-/*import data from './Simulation.json';*/
-import { Scrollama, Step } from 'react-scrollama';
 
-import Agents from './Agents';
-import Infection from './Infection';
-import Plotting from './Plotting';
-import MultiLoc from './MultiLoc';
-import Graph from './Graph';
-import CityCountryside from './CityCountryside';
-import Protecting from './Protecting';
-import Walkthroughs from './Walkthroughs';
+import DrawerRight from './component/DrawerRight';
+import Introduction from './component/Introduction';
+import WhyIMadeThis from './component/WhyIMadeThis';
+import Simulation from './component/Simulation';
+import Agents from './component/Agents';
+import Infection from './component/Infection';
+import Plotting from './component/Plotting';
+import MultiLoc from './component/MultiLoc';
+import Graph from './component/Graph';
+import CityCountryside from './component/CityCountryside';
+import Protecting from './component/Protecting';
+import Walkthroughs from './component/Walkthroughs';
 
 
 const useStyles = makeStyles((theme) => ({
@@ -60,7 +59,7 @@ export default function App() {
   };
 
   return (
-    <Box mx={12} className={classes.root}>
+    <Box ml={12} mr={6} className={classes.root}>
     <main className={classes.content}>
       <Typography variant="h4">
         Developing an Intuition for Pandemics
@@ -70,31 +69,31 @@ export default function App() {
         <Step data={0}>
           <div> <Introduction myRef={el => (refList.current[0] = el)} /> </div>
         </Step>
-        <Step data={0}>
-          <div> <WhyIMadeThis /> </div>
-        </Step>
         <Step data={1}>
-          <div> <Agents myRef={el => (refList.current[1] = el)} /> </div>
+          <div> <WhyIMadeThis data={currentStepIndex}/> </div>
         </Step>
         <Step data={2}>
-          <div> <Infection myRef={el => (refList.current[2] = el)} /> </div>
+          <div> <Agents myRef={el => (refList.current[1] = el)} /> </div>
         </Step>
         <Step data={3}>
-          <div> <Plotting myRef={el => (refList.current[3] = el)} /> </div>
+          <div> <Infection myRef={el => (refList.current[2] = el)} /> </div>
         </Step>
         <Step data={4}>
-          <div> <MultiLoc myRef={el => (refList.current[4] = el)} /> </div>
+          <div> <Plotting myRef={el => (refList.current[3] = el)} /> </div>
         </Step>
         <Step data={5}>
-          <div> <Graph myRef={el => (refList.current[5] = el)} /> </div>
+          <div> <MultiLoc myRef={el => (refList.current[4] = el)} /> </div>
         </Step>
         <Step data={6}>
-          <div> <CityCountryside myRef={el => (refList.current[6] = el)} /> </div>
+          <div> <Graph myRef={el => (refList.current[5] = el)} /> </div>
         </Step>
         <Step data={7}>
-          <div> <Protecting myRef={el => (refList.current[7] = el)} /> </div>
+          <div> <CityCountryside myRef={el => (refList.current[6] = el)} /> </div>
         </Step>
         <Step data={8}>
+          <div> <Protecting myRef={el => (refList.current[7] = el)} /> </div>
+        </Step>
+        <Step data={9}>
           <div> <Walkthroughs myRef={el => (refList.current[8] = el)} /> </div>
         </Step>
       </Scrollama>
