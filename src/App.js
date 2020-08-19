@@ -18,7 +18,7 @@ import Graph from './component/Graph';
 import CityCountryside from './component/CityCountryside';
 import Protecting from './component/Protecting';
 import Walkthroughs from './component/Walkthroughs';
-
+import Author from './component/Author';
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -65,6 +65,8 @@ export default function App() {
         Developing an Intuition for Pandemics
       </Typography>
       
+      <Author />
+
       <Scrollama offset={0.5} onStepEnter={onStepEnter} debug>
         <Step data={0}>
           <div> <Introduction myRef={el => (refList.current[0] = el)} /> </div>
