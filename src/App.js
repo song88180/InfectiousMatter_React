@@ -18,7 +18,13 @@ import Graph from './component/Graph';
 import CityCountryside from './component/CityCountryside';
 import Protecting from './component/Protecting';
 import Walkthroughs from './component/Walkthroughs';
+import FullSim from './component/FullSim';
+import ShoutOuts from './component/ShoutOuts';
 import Author from './component/Author';
+
+
+import MatterDiv from './component/MatterDiv'; 
+
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -74,8 +80,13 @@ export default function App() {
         <Step data={1}>
           <div> <WhyIMadeThis myRef={el => (refList.current[1] = el)} data={currentStepIndex}/> </div>
         </Step>
+        <Step data={-1}>
+          <div style={{position:"sticky", top: 0, height:"100px", zIndex:20}}> <MatterDiv /> </div>
+        </Step>
         <Step data={2}>
-          <div> <Agents myRef={el => (refList.current[2] = el)} data={currentStepIndex}/> </div>
+          <div>
+          <Agents myRef={el => (refList.current[2] = el)} data={currentStepIndex}/>
+          </div>
         </Step>
         <Step data={3}>
           <div> <Infection myRef={el => (refList.current[3] = el)} data={currentStepIndex}/> </div>
@@ -98,7 +109,11 @@ export default function App() {
         <Step data={9}>
           <div> <Walkthroughs myRef={el => (refList.current[9] = el)} /> </div>
         </Step>
+        <Step data={10}>
+          <div> <FullSim myRef={el => (refList.current[9] = el)} /> </div>
+        </Step>
       </Scrollama>
+      <ShoutOuts />
       <Copyright />
     </main>
     <DrawerRight index={currentStepIndex} refList={refList} />
