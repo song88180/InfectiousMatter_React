@@ -59,7 +59,7 @@ export default function App() {
   };
 
   return (
-    <Box ml={12} mr={6} className={classes.root}>
+    <Box width={1200} mx="auto" className={classes.root}>
     <main className={classes.content}>
       <Typography variant="h4">
         Developing an Intuition for Pandemics
