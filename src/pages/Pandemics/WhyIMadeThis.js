@@ -6,7 +6,7 @@ import Typography from '@material-ui/core/Typography';
 import Box from '@material-ui/core/Box';
 //import Image from 'material-ui-image';
 //import CardMedia from '@material-ui/core/CardMedia';
-import photo from '../assets/lz_greenhouse_small.jpeg';
+import photo from '../../assets/lz_greenhouse_small.jpeg';
 
 import Slide from '@material-ui/core/Slide';
 
