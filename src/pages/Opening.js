@@ -1,29 +1,10 @@
 import React, { useState, useRef, createRef } from 'react';
-import { Scrollama, Step } from 'react-scrollama';
-import Container from '@material-ui/core/Container';
 import Typography from '@material-ui/core/Typography';
 import Box from '@material-ui/core/Box';
 import Link from '@material-ui/core/Link';
 import { makeStyles } from '@material-ui/core/styles';
-
-import DrawerRight from '../component/DrawerRight';
-import Sidebar from '../component/Sidebar.js';
-
-import Introduction from './Pandemics/Introduction';
-import WhyIMadeThis from './Pandemics/WhyIMadeThis';
-import Simulation from '../component/Simulation';
-import Agents from './Pandemics/Agents';
-import Infection from './Pandemics/Infection';
-import Plotting from './Pandemics/Plotting';
-import MultiLoc from './Pandemics/MultiLoc';
-import Graph from './Pandemics/Graph';
-import CityCountryside from './Pandemics/CityCountryside';
-import Protecting from './Pandemics/Protecting';
-import Walkthroughs from './Pandemics/Walkthroughs';
-import FullSim from './Pandemics/FullSim';
 import ShoutOuts from './Pandemics/ShoutOuts';
 import Author from '../component/Author';
-
 
 import MatterDiv from '../component/MatterDiv';
 

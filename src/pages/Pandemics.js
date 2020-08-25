@@ -1,13 +1,9 @@
 import React, { useState, useRef, createRef } from 'react';
 import { Scrollama, Step } from 'react-scrollama';
-import Container from '@material-ui/core/Container';
 import Typography from '@material-ui/core/Typography';
 import Box from '@material-ui/core/Box';
 import Link from '@material-ui/core/Link';
 import { makeStyles } from '@material-ui/core/styles';
-
-import DrawerRight from '../component/DrawerRight';
-import Sidebar from '../component/Sidebar.js';
 
 import Introduction from './Pandemics/Introduction';
 import WhyIMadeThis from './Pandemics/WhyIMadeThis';

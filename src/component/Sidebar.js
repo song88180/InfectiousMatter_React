@@ -5,7 +5,6 @@ import Divider from "@material-ui/core/Divider";
 import ExpandMoreIcon from "@material-ui/icons/ExpandMore";
 import ExpandLessIcon from "@material-ui/icons/ExpandLess";
 import Collapse from "@material-ui/core/Collapse";
-import Drawer from "@material-ui/core/Drawer";
 import {makeStyles} from "@material-ui/core/styles";
 import {
   BrowserRouter as Router,

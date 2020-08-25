@@ -1,9 +1,8 @@
 import React from 'react';
 import { makeStyles } from '@material-ui/core/styles';
+import Link from '@material-ui/core/Link';
 import Typography from '@material-ui/core/Typography';
 import Box from '@material-ui/core/Box';
-import Image from 'material-ui-image';
-import teaser from '../../assets/teaser.png';
 import Fade from "@material-ui/core/Fade";
 
 
