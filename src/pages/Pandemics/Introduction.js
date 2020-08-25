@@ -5,7 +5,7 @@ import SvgIcon from '@material-ui/core/SvgIcon';
 import Typography from '@material-ui/core/Typography';
 import Box from '@material-ui/core/Box';
 import Image from 'material-ui-image';
-import teaser from '../assets/teaser.png';
+import teaser from '../../assets/teaser.png';
 
 
 const useStyles = makeStyles((theme) => ({
