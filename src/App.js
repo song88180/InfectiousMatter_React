@@ -17,7 +17,6 @@ import {
 } from "react-router-dom";
 
 
-
 const useStyles = makeStyles((theme) => ({
   root: {
     display: 'flex',
@@ -52,8 +51,17 @@ export default function App() {
 
   const items = useRef(null);
 
+  const curItemName = useRef(null); // the current name of item (where is the scrolling position)
+
+
+
   const scrollToRef = (e, item) => {
-    window.scrollTo(0, refMap.current[item.name].offsetTop);
+    if (refMap.current[item.name]) {
+      window.scrollTo(0, refMap.current[item.name].offsetTop);
+    }
+    else{
+      curItemName.current=item.name;
+    }
   }
 
   items.current = [
@@ -61,15 +69,17 @@ export default function App() {
       name: "opening",
       label: "Opening" ,
       to: '/opening',
+      onClick: scrollToRef
     },
     "divider",
     {
       name: "growthmodel",
       label: "Growth Model",
       to: '/growthmodel',
+      onClick: scrollToRef,
       items: [
-        { name: "exponential", label: "Exponential Growth",onClick: scrollToRef },
-        { name: "logistic", label: "Logistic" ,onClick: scrollToRef}
+        { name: "exponential", label: "Exponential Growth", to:'/growthmodel',onClick: scrollToRef },
+        { name: "logistic", label: "Logistic" , to:'/growthmodel',onClick: scrollToRef}
       ]
     },
     "divider",
@@ -77,17 +87,18 @@ export default function App() {
       name: "pandemics",
       label: "Pandemics",
       to: '/pandemics',
+      onClick: scrollToRef,
       items: [
-        {name: 'introduction', label: "Introduction" , onClick: scrollToRef},
-        {name: 'whyimadethis', label: "Why I made this" , onClick: scrollToRef},
-        {name: 'agents', label: 'Simple Agents', onClick: scrollToRef},
-        {name: 'infection', label: 'Infections', onClick: scrollToRef},
-        {name: 'plotting', label: 'Plots', ref:'', onClick: scrollToRef},
-        {name: 'multiloc', label: 'Metapopulations', onClick: scrollToRef},
-        {name: 'graph', label: 'Contact Graphs', onClick: scrollToRef},
-        {name: 'citycountryside', label: 'Example: Cities and Countryside', onClick: scrollToRef},
-        {name: 'protecting', label: 'Protecting Our Small Towns',  onClick: scrollToRef},
-        {name: 'walkthroughs', label: 'More Walkthroughs', onClick: scrollToRef}
+        {name: 'introduction', label: "Introduction", to: '/pandemics', onClick: scrollToRef},
+        {name: 'whyimadethis', label: "Why I made this", to: '/pandemics', onClick: scrollToRef},
+        {name: 'agents', label: 'Simple Agents', to: '/pandemics', onClick: scrollToRef},
+        {name: 'infection', label: 'Infections', to: '/pandemics', onClick: scrollToRef},
+        {name: 'plotting', label: 'Plots', to: '/pandemics', onClick: scrollToRef},
+        {name: 'multiloc', label: 'Metapopulations', to: '/pandemics', onClick: scrollToRef},
+        {name: 'graph', label: 'Contact Graphs', to: '/pandemics', onClick: scrollToRef},
+        {name: 'citycountryside', label: 'Example: Cities and Countryside', to: '/pandemics', onClick: scrollToRef},
+        {name: 'protecting', label: 'Protecting Our Small Towns', to: '/pandemics', onClick: scrollToRef},
+        {name: 'walkthroughs', label: 'More Walkthroughs', to: '/pandemics', onClick: scrollToRef}
       ]
     }
   ]
@@ -106,16 +117,15 @@ export default function App() {
     <Router>
       <Box className={classes.root}>
         <Sidebar items={items} refMap={refMap} />
-
         <Switch>
           <Route path='/pandemics'>
-            <Pandemics refMap={refMap}/>
+            <Pandemics refMap={refMap} curItemName={curItemName}/>
           </Route>
           <Route path='/growthmodel'>
-            <GrowthModel refMap={refMap}/>
+            <GrowthModel refMap={refMap} curItemName={curItemName}/>
           </Route>
           <Route path={'/'}>
-            <Opening refMap={refMap}/>
+            <Opening refMap={refMap} curItemName={curItemName}/>
           </Route>
         </Switch>
       </Box>

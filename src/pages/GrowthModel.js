@@ -1,4 +1,4 @@
-import React, { useState, useRef, createRef } from 'react';
+import React, {useState, useRef, createRef, useEffect} from 'react';
 import { Scrollama, Step } from 'react-scrollama';
 import Container from '@material-ui/core/Container';
 import Typography from '@material-ui/core/Typography';
@@ -23,7 +23,7 @@ const useStyles = makeStyles((theme) => ({
     margin: theme.spacing(0,"auto"),
     backgroundColor: theme.palette.background.default,
     maxWidth: 1000,
-    padding: theme.spacing(0,4),
+    padding: theme.spacing(4,4),
   },
 }));
 
@@ -42,12 +42,8 @@ function Copyright() {
   );
 }
 
-export default function GrowthModel({refMap}) {
+export default function GrowthModel({refMap, curItemName}) {
   const classes = useStyles();
-
-  //const refList = useRef([0,1,2,3,4,5,6,7,8].map(() => createRef()));
-
-  const refList = useRef([]);
 
   const [currentStepIndex, setCurrentStepIndex] = useState(null);
   const onStepEnter = ({ data }) => {
@@ -58,6 +54,17 @@ export default function GrowthModel({refMap}) {
     refMap.current[_name] = createRef();
     refMap.current[_name] = _ref;
   }
+
+  useEffect(() => {
+    console.log(curItemName.current,'onload GrowthModel');
+    let curRef = refMap.current[curItemName.current];
+    if (curRef){
+      window.scrollTo(0, curRef.offsetTop);
+    }
+    else {
+      window.scrollTo(0, 0);
+    }
+  },[])
 
   return (
     <main className={classes.content}>

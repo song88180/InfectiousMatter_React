@@ -1,4 +1,4 @@
-import React, { useState, useRef, createRef } from 'react';
+import React, {useState, useRef, createRef, useEffect} from 'react';
 import { Scrollama, Step } from 'react-scrollama';
 import Typography from '@material-ui/core/Typography';
 import Box from '@material-ui/core/Box';
@@ -25,14 +25,11 @@ import MatterDiv from '../component/MatterDiv';
 
 
 const useStyles = makeStyles((theme) => ({
-  root: {
-    display: 'flex',
-  },
   content: {
     margin: theme.spacing(0,"auto"),
     backgroundColor: theme.palette.background.default,
     maxWidth: 1000,
-    padding: theme.spacing(0,4),
+    padding: theme.spacing(4,4),
   },
 }));
 
@@ -52,7 +49,7 @@ function Copyright() {
   );
 }
 
-export default function Pandemics({refMap}) {
+export default function Pandemics({refMap, curItemName}) {
   const classes = useStyles();
 
   const [currentStepIndex, setCurrentStepIndex] = useState(null);
@@ -64,6 +61,17 @@ export default function Pandemics({refMap}) {
     refMap.current[_name] = createRef();
     refMap.current[_name] = _ref;
   }
+
+  useEffect(() => {
+    console.log(curItemName.current,'onload Pandemics');
+    let curRef = refMap.current[curItemName.current];
+    if (curRef){
+      window.scrollTo(0, curRef.offsetTop);
+    }
+    else {
+      window.scrollTo(0, 0);
+    }
+  },[])
 
   return (
     <main className={classes.content}>

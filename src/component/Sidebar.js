@@ -10,7 +10,8 @@ import {
   BrowserRouter as Router,
   Switch,
   Route,
-  Link
+  Link,
+  useHistory
 } from "react-router-dom";
 
 const drawerWidth = 240;
@@ -30,13 +31,14 @@ const useStyles = makeStyles((theme) => ({
   toolbar: theme.mixins.toolbar,
 }));
 
-
 function SidebarItem({ depthStep = 10, depth = 0, expanded, item, ...rest }) {
 
   const classes = useStyles();
 
   const [collapsed, setCollapsed] = React.useState(true);
   const { label, items, Icon, onClick: onClickProp} = item;
+
+  const history = useHistory();
 
   function toggleCollapse() {
     setCollapsed(prevValue => !prevValue);
@@ -48,6 +50,7 @@ function SidebarItem({ depthStep = 10, depth = 0, expanded, item, ...rest }) {
     }
     if (onClickProp) {
       onClickProp(e, item);
+      history.push(item.to);
     }
   }
 
@@ -68,8 +71,6 @@ function SidebarItem({ depthStep = 10, depth = 0, expanded, item, ...rest }) {
   return (
     <>
       <ListItem
-        component={Link}
-        to={item.to}
         className="sidebar-item"
         onClick={onClick}
         button
@@ -81,7 +82,7 @@ function SidebarItem({ depthStep = 10, depth = 0, expanded, item, ...rest }) {
           className="sidebar-item-content"
         >
           {Icon && <Icon className="sidebar-item-icon" fontSize="small" />}
-          <div className="sidebar-item-text">{label}</div>
+          <div className="sidebar-item-text" style={{ fontSize: !depth ? 18:15}}>{label}</div>
         </div>
             {expandIcon}
       </ListItem>
@@ -91,7 +92,7 @@ function SidebarItem({ depthStep = 10, depth = 0, expanded, item, ...rest }) {
             {items.map((subItem, index) => (
               <React.Fragment key={`${subItem.name}${index}`}>
                 {subItem === "divider" ? (
-                  <Divider style={{ margin: "6px 0" }} />
+                  <Divider style={{ margin: "6px 0" }} component="li" />
                 ) : (
                   <SidebarItem
                     depth={depth + 1}
@@ -111,15 +112,15 @@ function SidebarItem({ depthStep = 10, depth = 0, expanded, item, ...rest }) {
 function Sidebar({ items, depthStep, depth, expanded, refMap }) {
   const classes = useStyles();
   //console.log('Here3');
-  //console.log(refMap);
   return (
 
     <div className="sidebar">
+      <Divider style={{ margin: "20px 0 6px 0" }} />
       <List disablePadding dense>
         {items.current.map((sidebarItem, index) => (
           <React.Fragment key={`${sidebarItem.name}${index}`}>
             {sidebarItem === "divider" ? (
-              <Divider style={{ margin: "6px 0" }} />
+              <Divider style={{ margin: "6px 0" }} component="li"/>
             ) : (
               <SidebarItem
                 depthStep={depthStep}

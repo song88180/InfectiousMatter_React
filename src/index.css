@@ -18,8 +18,8 @@ code {
 .sidebar {
   height: 100vh;
   border: 1px solid rgba(0, 0, 0, 0.1);
-  width: 200px;
-  min-width:200px;
+  width: 240px;
+  min-width:240px;
   position: sticky;
   top: 0;
 }
@@ -45,6 +45,9 @@ code {
 
 .sidebar-item-text {
   width: 100%;
+  text-overflow: ellipsis;
+  overflow: hidden;
+  white-space: nowrap;
 }
 
 .sidebar-item-expand-arrow {
