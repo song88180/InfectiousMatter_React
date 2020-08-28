@@ -1,19 +1,15 @@
-import React, {useState, useRef, createRef, useEffect} from 'react';
+import React, {useState, createRef, useEffect} from 'react';
 import { Scrollama, Step } from 'react-scrollama';
 import Container from '@material-ui/core/Container';
 import Typography from '@material-ui/core/Typography';
 import Box from '@material-ui/core/Box';
 import Link from '@material-ui/core/Link';
 import { makeStyles } from '@material-ui/core/styles';
-
 import ShoutOuts from './Pandemics/ShoutOuts';
 import Author from '../component/Author';
-
-
-import MatterDiv from '../component/MatterDiv';
 import Exponential from "./GrowthModel/Exponential";
 import Logistic from "./GrowthModel/Logistic";
-
+import GrowthSimulation from "../SimComponents/GrowthSimulation";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -44,7 +40,8 @@ function Copyright() {
 
 export default function GrowthModel({refMap, curItemName}) {
   const classes = useStyles();
-
+  const [worldReadyTrigger, setWorldReadyTrigger] = useState(0);
+  const [redraw_trigger, setRedrawTrigger] = useState(0);
   const [currentStepIndex, setCurrentStepIndex] = useState(null);
   const onStepEnter = ({ data }) => {
     setCurrentStepIndex(data);
@@ -73,13 +70,21 @@ export default function GrowthModel({refMap, curItemName}) {
       </Typography>
 
       <Author />
-
       <Scrollama offset={0.5} onStepEnter={onStepEnter} debug>
         <Step data={0}>
           <div> <Exponential myRef={el => registerDOM(refMap,'exponential',el)} /> </div>
         </Step>
+        <Step data={-1}>
+          <div style={{position:"sticky", top: 0, height:"400px", zIndex:20}}>
+            <GrowthSimulation
+              setWorldReadyTrigger={setWorldReadyTrigger}
+              redraw_trigger={redraw_trigger}
+              divSize={300}
+            />
+          </div>
+        </Step>
         <Step data={1}>
-          <div> <Logistic myRef={el => registerDOM(refMap,'logistic',el)} data={currentStepIndex}/> </div>
+          <div> <Logistic myRef={el => registerDOM(refMap,'logistic',el)} /> </div>
         </Step>
       </Scrollama>
       <ShoutOuts />

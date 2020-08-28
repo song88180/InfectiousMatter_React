@@ -1,4 +1,4 @@
-import React, {useState, useRef, createRef, useEffect} from 'react';
+import React, {useState, useRef, createRef, useEffect, useContext} from 'react';
 import { Scrollama, Step } from 'react-scrollama';
 import Typography from '@material-ui/core/Typography';
 import Box from '@material-ui/core/Box';
@@ -7,7 +7,6 @@ import { makeStyles } from '@material-ui/core/styles';
 
 import Introduction from './Pandemics/Introduction';
 import WhyIMadeThis from './Pandemics/WhyIMadeThis';
-import Simulation from '../component/Simulation';
 import Agents from './Pandemics/Agents';
 import Infection from './Pandemics/Infection';
 import Plotting from './Pandemics/Plotting';
@@ -19,10 +18,11 @@ import Walkthroughs from './Pandemics/Walkthroughs';
 import FullSim from './Pandemics/FullSim';
 import ShoutOuts from './Pandemics/ShoutOuts';
 import Author from '../component/Author';
-
-
-import MatterDiv from '../component/MatterDiv';
-
+//import MatterDiv from '../component/MatterDiv';
+import InfectiousMatterSimulation from "../SimComponents/InfectiousMatterSimulation";
+import GrowthSimulation from "../SimComponents/GrowthSimulation";
+import InfectiousMatterPlot from "../SimComponents/InfectiousMatterPlot";
+import InfectiousMatterContactGraph from "../SimComponents/InfectiousMatterContactGraph";
 
 const useStyles = makeStyles((theme) => ({
   content: {
@@ -51,7 +51,8 @@ function Copyright() {
 
 export default function Pandemics({refMap, curItemName}) {
   const classes = useStyles();
-
+  const [worldReadyTrigger, setWorldReadyTrigger] = useState(0);
+  const [redraw_trigger, setRedrawTrigger] = useState(0);
   const [currentStepIndex, setCurrentStepIndex] = useState(null);
   const onStepEnter = ({ data }) => {
     setCurrentStepIndex(data);
@@ -89,7 +90,23 @@ export default function Pandemics({refMap, curItemName}) {
           <div> <WhyIMadeThis myRef={el => registerDOM(refMap,'whyimadethis',el)} data={currentStepIndex}/> </div>
         </Step>
         <Step data={-1}>
-          <div style={{position:"sticky", top: 0, height:"100px", zIndex:20}}> <MatterDiv /> </div>
+          <div style={{
+            position:"sticky", top: 0, height:300, zIndex:20, display:'flex', justifyContent:'space-evenly',
+            background: "rgba(255,255,255,.9)", marginBottom:150
+          }}>
+            <InfectiousMatterPlot
+              redraw_trigger={redraw_trigger}
+            />
+            <InfectiousMatterSimulation
+              setWorldReadyTrigger={setWorldReadyTrigger}
+              redraw_trigger={redraw_trigger}
+              divSize={300}
+            />
+            <InfectiousMatterContactGraph
+              worldReadyTrigger={worldReadyTrigger}
+            />
+
+          </div>
         </Step>
         <Step data={2}>
           <div>

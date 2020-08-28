@@ -1,15 +1,17 @@
-import React, {useState, useRef, createRef, useEffect} from 'react';
+import React, {useRef, useEffect} from 'react';
 import Typography from '@material-ui/core/Typography';
 import Box from '@material-ui/core/Box';
 import Link from '@material-ui/core/Link';
 import { makeStyles } from '@material-ui/core/styles';
 
 import Sidebar from './component/Sidebar.js';
-
 import Introduction from './pages/Pandemics/Introduction';
 import Pandemics from './pages/Pandemics';
 import GrowthModel from './pages/GrowthModel';
 import Opening from './pages/Opening';
+
+import IMApp from './SimComponents/IMApp';
+
 import {
   BrowserRouter as Router,
   Switch,
@@ -46,14 +48,9 @@ function Copyright() {
 
 export default function App() {
   const classes = useStyles();
-  //const refList = useRef([0,1,2,3,4,5,6,7,8].map(() => createRef()));
   const refMap = useRef(new Map());
-
   const items = useRef(null);
-
   const curItemName = useRef(null); // the current name of item (where is the scrolling position)
-
-
 
   const scrollToRef = (e, item) => {
     if (refMap.current[item.name]) {
@@ -114,21 +111,23 @@ export default function App() {
   // };
 
   return (
-    <Router>
-      <Box className={classes.root}>
-        <Sidebar items={items} refMap={refMap} />
-        <Switch>
-          <Route path='/pandemics'>
-            <Pandemics refMap={refMap} curItemName={curItemName}/>
-          </Route>
-          <Route path='/growthmodel'>
-            <GrowthModel refMap={refMap} curItemName={curItemName}/>
-          </Route>
-          <Route path={'/'}>
-            <Opening refMap={refMap} curItemName={curItemName}/>
-          </Route>
-        </Switch>
-      </Box>
-    </Router>
+    <IMApp>
+      <Router>
+        <Box className={classes.root}>
+          <Sidebar items={items} refMap={refMap} />
+          <Switch>
+            <Route path='/pandemics'>
+              <Pandemics refMap={refMap} curItemName={curItemName}/>
+            </Route>
+            <Route path='/growthmodel'>
+              <GrowthModel refMap={refMap} curItemName={curItemName}/>
+            </Route>
+            <Route path={'/'}>
+              <Opening refMap={refMap} curItemName={curItemName}/>
+            </Route>
+          </Switch>
+        </Box>
+      </Router>
+    </IMApp>
   );
 }
