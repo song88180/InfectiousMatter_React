@@ -1,10 +1,9 @@
 import React, {useEffect, useRef, useLayoutEffect, useContext} from 'react';
 import { Typography } from '@material-ui/core';
 import Button from '@material-ui/core/Button';
-import {AgentStates, ContactGraph} from '../InfectiousMatter/simulation.js';
+//import {AgentStates, ContactGraph} from '../InfectiousMatter/simulation.js';
 import {IMContext} from '../SimComponents/IMApp';
 const Matter = require('matter-js');
-const Viva = require('vivagraphjs');
 
 
 
@@ -73,21 +72,20 @@ const InfectiousMatterSimulation = ({redraw_trigger, setWorldReadyTrigger, numMa
             }
         };
 
-
         let res1 = InfectiousMatterAPI(InfectiousMatterRef, {type:'add_location', payload:{residence_props: res_prop}});
         let res2 = InfectiousMatterAPI(InfectiousMatterRef, {type:'add_location', payload:{residence_props: res_prop2}});
         let res3 = InfectiousMatterAPI(InfectiousMatterRef, {type:'add_location', payload:{residence_props: res_prop3}});
         let res4 = InfectiousMatterAPI(InfectiousMatterRef, {type:'add_location', payload:{residence_props: res_prop4}});
 
-        InfectiousMatterAPI(InfectiousMatterRef, {type:'add_agents', payload:{residence: res1, num_agents: 100}});
-        InfectiousMatterAPI(InfectiousMatterRef, {type:'add_agents', payload:{residence: res2, num_agents: 100}});
-        InfectiousMatterAPI(InfectiousMatterRef, {type:'add_agents', payload:{residence: res3, num_agents: 100}});
-        InfectiousMatterAPI(InfectiousMatterRef, {type:'add_agents', payload:{residence: res4, num_agents: 100}});
+        InfectiousMatterAPI(InfectiousMatterRef, {type:'add_agents', payload:{residence: res1, num_agents: 50}});
+        InfectiousMatterAPI(InfectiousMatterRef, {type:'add_agents', payload:{residence: res2, num_agents: 50}});
+        InfectiousMatterAPI(InfectiousMatterRef, {type:'add_agents', payload:{residence: res3, num_agents: 50}});
+        InfectiousMatterAPI(InfectiousMatterRef, {type:'add_agents', payload:{residence: res4, num_agents: 50}});
         
         InfectiousMatterRef.current.add_event({time: 1000, callback: InfectiousMatterRef.current.new_migration_event(), recurring: true });
         
         
-        InfectiousMatterAPI(InfectiousMatterRef, {type:'add_migration_link', payload: {from_location:res1.uuid, to_location:res2.uuid, num_agents:2}});
+        InfectiousMatterAPI(InfectiousMatterRef, {type:'add_migration_link', payload: {from_location:res1.uuid, to_location:res2.uuid, num_agents:1}});
         InfectiousMatterAPI(InfectiousMatterRef, {type:'add_migration_link', payload: {from_location:res2.uuid, to_location:res3.uuid, num_agents:2}});
         InfectiousMatterAPI(InfectiousMatterRef, {type:'add_migration_link', payload: {from_location:res3.uuid, to_location:res4.uuid, num_agents:2}});
         InfectiousMatterAPI(InfectiousMatterRef, {type:'add_migration_link', payload: {from_location:res4.uuid, to_location:res1.uuid, num_agents:2}});
@@ -173,4 +171,3 @@ const InfectiousMatterSimulation = ({redraw_trigger, setWorldReadyTrigger, numMa
 };
 
 export default InfectiousMatterSimulation;
-export {AgentStates, ContactGraph};

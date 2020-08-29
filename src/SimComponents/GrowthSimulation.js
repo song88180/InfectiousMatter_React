@@ -84,9 +84,6 @@ const GrowthSimulation = ({redraw_trigger, setWorldReadyTrigger, numMasked, divS
         InfectiousMatterRef.current = new InfectiousMatter(false, simulation_params, infection_params, default_simulation_colors);
         InfectiousMatterAPI(InfectiousMatterRef, {type:'setup_environment', payload:{sim_div:sim_div}});
 
-        //
-        console.log('new InfectiousMatter');
-        //
         setup_world();
 
         //InfectiousMatterAPI(InfectiousMatterRef, {type:'reset_simulator'});

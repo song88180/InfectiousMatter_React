@@ -7,6 +7,7 @@ import ShoutOuts from './Pandemics/ShoutOuts';
 import Author from '../component/Author';
 
 import MatterDiv from '../component/MatterDiv';
+import {ContactGraph} from "../InfectiousMatter/simulation";
 
 
 const useStyles = makeStyles((theme) => ({
