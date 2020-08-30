@@ -53,10 +53,13 @@ export default function App() {
   const [curItemName,setCurItemName] = useState(null); // the current name of item (where is the scrolling position)
 
   const scrollToRef = (e, item) => {
-    setCurItemName(item.name);
     console.log(curItemName);
     if (refMap.current[item.name]) {
       window.scrollTo(0, refMap.current[item.name].offsetTop-350);
+      setCurItemName(item.name);
+    }
+    else {
+      setCurItemName(item.name);
     }
   }
 
@@ -104,10 +107,6 @@ export default function App() {
 
   }, [])
 
-  // const [currentStepIndex, setCurrentStepIndex] = useState(null);
-  // const onStepEnter = ({ data }) => {
-  //   setCurrentStepIndex(data);
-  // };
 
   return (
     <IMApp>

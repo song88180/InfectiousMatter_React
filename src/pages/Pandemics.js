@@ -1,5 +1,5 @@
 import React, {useState, useRef, createRef, useEffect, useContext} from 'react';
-import { Scrollama, Step } from 'react-scrollama';
+import useScrollSpy from 'react-use-scrollspy';
 import Typography from '@material-ui/core/Typography';
 import Box from '@material-ui/core/Box';
 import Link from '@material-ui/core/Link';
@@ -53,11 +53,18 @@ export default function Pandemics({refMap, curItemName,setCurItemName}) {
   const classes = useStyles();
   const [worldReadyTrigger, setWorldReadyTrigger] = useState(0);
   const [redraw_trigger, setRedrawTrigger] = useState(0);
+  const name_list = useRef(['introduction', 'whyimadethis', 'agents', 'infection', 'plotting', 'multiloc',
+                                      'graph', 'citycountryside', 'protecting', 'walkthroughs'])
 
-  const onStepEnter = ({ data }) => {
-    setCurItemName(data);
-    console.log(data);
-  };
+  const sectionRefs = [
+    useRef(null),useRef(null),useRef(null),useRef(null),useRef(null),
+    useRef(null),useRef(null),useRef(null),useRef(null),useRef(null)
+  ]
+
+  const activeSection = useScrollSpy({
+    sectionElementRefs: sectionRefs,
+    offsetPx: -500,
+  });
 
   function registerDOM(refMap, _name, _ref){
     refMap.current[_name] = createRef();
@@ -71,9 +78,16 @@ export default function Pandemics({refMap, curItemName,setCurItemName}) {
       window.scrollTo(0, curRef.offsetTop - 350);
     }
     else {
+      setCurItemName('introduction');
       window.scrollTo(0, 0);
     }
+
   },[])
+
+  useEffect(() => {
+    console.log('activeSection',activeSection);
+    setCurItemName(name_list.current[activeSection]);
+  },[activeSection])
 
   return (
     <main className={classes.content}>
@@ -83,14 +97,11 @@ export default function Pandemics({refMap, curItemName,setCurItemName}) {
 
       <Author />
 
-      <Scrollama offset={0.5} onStepEnter={onStepEnter} debug>
-        <Step data={'introduction'}>
-          <div> <Introduction myRef={el => registerDOM(refMap,'introduction',el)}/> </div>
-        </Step>
-        <Step data={'whyimadethis'}>
-          <div> <WhyIMadeThis myRef={el => registerDOM(refMap,'whyimadethis',el)} data={curItemName}/> </div>
-        </Step>
-        <Step data={null}>
+          <div ref={sectionRefs[0]}> <Introduction myRef={el => registerDOM(refMap, 'introduction',el)}/> </div>
+
+          <div ref={sectionRefs[1]}> <WhyIMadeThis myRef={el => registerDOM(refMap,'whyimadethis',el)} data={curItemName}/> </div>
+
+
           <div style={{
             position:"sticky", top: 0, height:300, zIndex:20, display:'flex', justifyContent:'space-evenly',
             background: "rgba(255,255,255,.9)", marginBottom:150
@@ -108,37 +119,32 @@ export default function Pandemics({refMap, curItemName,setCurItemName}) {
             />
 
           </div>
-        </Step>
-        <Step data={'agents'}>
-          <div>
+
+
+          <div ref={sectionRefs[2]}>
           <Agents myRef={el => registerDOM(refMap,'agents',el)} data={curItemName}/>
           </div>
-        </Step>
-        <Step data={'infection'}>
-          <div> <Infection myRef={el => registerDOM(refMap,'infection',el)} data={curItemName}/> </div>
-        </Step>
-        <Step data={'plotting'}>
-          <div> <Plotting myRef={el => registerDOM(refMap,'plotting',el)} data={curItemName}/> </div>
-        </Step>
-        <Step data={'multiloc'}>
-          <div> <MultiLoc myRef={el => registerDOM(refMap,'multiloc',el)} data={curItemName}/> </div>
-        </Step>
-        <Step data={'graph'}>
-          <div> <Graph myRef={el => registerDOM(refMap,'graph',el)} data={curItemName}/> </div>
-        </Step>
-        <Step data={'citycountryside'}>
-          <div> <CityCountryside myRef={el => registerDOM(refMap,'citycountryside',el)} data={curItemName}/> </div>
-        </Step>
-        <Step data={'protecting'}>
-          <div> <Protecting myRef={el => registerDOM(refMap,'protecting',el)} data={curItemName}/> </div>
-        </Step>
-        <Step data={'walkthroughs'}>
-          <div> <Walkthroughs myRef={el => registerDOM(refMap,'walkthroughs',el)} /> </div>
-        </Step>
-        <Step data={null}>
-          <div> <FullSim /> </div>
-        </Step>
-      </Scrollama>
+
+
+          <div ref={sectionRefs[3]}> <Infection myRef={el => registerDOM(refMap,'infection',el)} data={curItemName}/> </div>
+
+
+          <div ref={sectionRefs[4]}> <Plotting myRef={el => registerDOM(refMap,'plotting',el)} data={curItemName}/> </div>
+
+
+          <div ref={sectionRefs[5]}> <MultiLoc myRef={el => registerDOM(refMap,'multiloc',el)} data={curItemName}/> </div>
+
+          <div ref={sectionRefs[6]}> <Graph myRef={el => registerDOM(refMap,'graph',el)} data={curItemName}/> </div>
+
+
+          <div ref={sectionRefs[7]}> <CityCountryside myRef={el => registerDOM(refMap,'citycountryside',el)} data={curItemName}/> </div>
+
+          <div ref={sectionRefs[8]}> <Protecting myRef={el => registerDOM(refMap,'protecting',el)} data={curItemName}/> </div>
+
+          <div ref={sectionRefs[9]}> <Walkthroughs myRef={el => registerDOM(refMap,'walkthroughs',el)} /> </div>
+
+          <div > <FullSim /> </div>
+
       <ShoutOuts />
       <Copyright />
     </main>

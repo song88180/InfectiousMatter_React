@@ -1,5 +1,6 @@
-import React, {useState, createRef, useEffect} from 'react';
-import { Scrollama, Step } from 'react-scrollama';
+import React, {useState, createRef, useEffect, useRef} from 'react';
+//import { Scrollama, Step } from 'react-scrollama';
+import useScrollSpy from 'react-use-scrollspy';
 import Container from '@material-ui/core/Container';
 import Typography from '@material-ui/core/Typography';
 import Box from '@material-ui/core/Box';
@@ -42,10 +43,21 @@ export default function GrowthModel({refMap, curItemName, setCurItemName}) {
   const classes = useStyles();
   const [worldReadyTrigger, setWorldReadyTrigger] = useState(0);
   const [redraw_trigger, setRedrawTrigger] = useState(0);
-  const onStepEnter = ({ data }) => {
-    setCurItemName(data);
-    console.log(data)
-  };
+  const name_list = useRef(['exponential', 'logistic'])
+
+  const sectionRefs = [
+    useRef(null),useRef(null)
+  ]
+
+  const activeSection = useScrollSpy({
+    sectionElementRefs: sectionRefs,
+    offsetPx: -500,
+  });
+
+  useEffect(() => {
+    console.log('activeSection',activeSection);
+    setCurItemName(name_list.current[activeSection]);
+  },[activeSection])
 
   function registerDOM(refMap, _name, _ref){
     refMap.current[_name] = createRef();
@@ -59,6 +71,7 @@ export default function GrowthModel({refMap, curItemName, setCurItemName}) {
       window.scrollTo(0, curRef.offsetTop-350);
     }
     else {
+      setCurItemName('exponential');
       window.scrollTo(0, 0);
     }
   },[])
@@ -70,23 +83,17 @@ export default function GrowthModel({refMap, curItemName, setCurItemName}) {
       </Typography>
 
       <Author />
-      <Scrollama offset={0.5} onStepEnter={onStepEnter} debug>
-        <Step data={'exponential'}>
-          <div> <Exponential myRef={el => registerDOM(refMap,'exponential',el)} /> </div>
-        </Step>
-        <Step data={null}>
-          <div style={{position:"sticky", top: 0, height:"400px", zIndex:20}}>
-            <GrowthSimulation
-              setWorldReadyTrigger={setWorldReadyTrigger}
-              redraw_trigger={redraw_trigger}
-              divSize={300}
-            />
-          </div>
-        </Step>
-        <Step data={'logistic'}>
-          <div> <Logistic myRef={el => registerDOM(refMap,'logistic',el)} /> </div>
-        </Step>
-      </Scrollama>
+
+      <div ref={sectionRefs[0]}> <Exponential myRef={el => registerDOM(refMap,'exponential',el)} /> </div>
+      <div style={{position:"sticky", top: 0, height:"400px", zIndex:20}}>
+        <GrowthSimulation
+          setWorldReadyTrigger={setWorldReadyTrigger}
+          redraw_trigger={redraw_trigger}
+          divSize={300}
+        />
+      </div>
+      <div ref={sectionRefs[1]}> <Logistic myRef={el => registerDOM(refMap,'logistic',el)} /> </div>
+
       <ShoutOuts />
       <Copyright />
     </main>
