@@ -37,19 +37,18 @@ function Copyright() {
   );
 }
 
-export default function Opening({refMap, curItemName}) {
+export default function Opening({refMap, curItemName, setCurItemName}) {
   const classes = useStyles();
   const refList = useRef([]);
 
-  const [currentStepIndex, setCurrentStepIndex] = useState(null);
   const onStepEnter = ({data}) => {
-    setCurrentStepIndex(data);
+    setCurItemName(data);
   };
   useEffect(() => {
-    console.log(curItemName.current, 'onload Opening');
-    let curRef = refMap.current[curItemName.current];
+    console.log(curItemName, 'onload Opening');
+    let curRef = refMap.current[curItemName];
     if (curRef) {
-      window.scrollTo(0, curRef.offsetTop);
+      window.scrollTo(0, curRef.offsetTop - 350);
     } else {
       window.scrollTo(0, 0);
     }

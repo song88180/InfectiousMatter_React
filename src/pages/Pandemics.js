@@ -49,13 +49,14 @@ function Copyright() {
   );
 }
 
-export default function Pandemics({refMap, curItemName}) {
+export default function Pandemics({refMap, curItemName,setCurItemName}) {
   const classes = useStyles();
   const [worldReadyTrigger, setWorldReadyTrigger] = useState(0);
   const [redraw_trigger, setRedrawTrigger] = useState(0);
-  const [currentStepIndex, setCurrentStepIndex] = useState(null);
+
   const onStepEnter = ({ data }) => {
-    setCurrentStepIndex(data);
+    setCurItemName(data);
+    console.log(data);
   };
 
   function registerDOM(refMap, _name, _ref){
@@ -64,10 +65,10 @@ export default function Pandemics({refMap, curItemName}) {
   }
 
   useEffect(() => {
-    console.log(curItemName.current,'onload Pandemics');
-    let curRef = refMap.current[curItemName.current];
+    console.log(curItemName,'onload Pandemics');
+    let curRef = refMap.current[curItemName];
     if (curRef){
-      window.scrollTo(0, curRef.offsetTop);
+      window.scrollTo(0, curRef.offsetTop - 350);
     }
     else {
       window.scrollTo(0, 0);
@@ -83,13 +84,13 @@ export default function Pandemics({refMap, curItemName}) {
       <Author />
 
       <Scrollama offset={0.5} onStepEnter={onStepEnter} debug>
-        <Step data={0}>
+        <Step data={'introduction'}>
           <div> <Introduction myRef={el => registerDOM(refMap,'introduction',el)}/> </div>
         </Step>
-        <Step data={1}>
-          <div> <WhyIMadeThis myRef={el => registerDOM(refMap,'whyimadethis',el)} data={currentStepIndex}/> </div>
+        <Step data={'whyimadethis'}>
+          <div> <WhyIMadeThis myRef={el => registerDOM(refMap,'whyimadethis',el)} data={curItemName}/> </div>
         </Step>
-        <Step data={-1}>
+        <Step data={null}>
           <div style={{
             position:"sticky", top: 0, height:300, zIndex:20, display:'flex', justifyContent:'space-evenly',
             background: "rgba(255,255,255,.9)", marginBottom:150
@@ -108,33 +109,33 @@ export default function Pandemics({refMap, curItemName}) {
 
           </div>
         </Step>
-        <Step data={2}>
+        <Step data={'agents'}>
           <div>
-          <Agents myRef={el => registerDOM(refMap,'agents',el)} data={currentStepIndex}/>
+          <Agents myRef={el => registerDOM(refMap,'agents',el)} data={curItemName}/>
           </div>
         </Step>
-        <Step data={3}>
-          <div> <Infection myRef={el => registerDOM(refMap,'infection',el)} data={currentStepIndex}/> </div>
+        <Step data={'infection'}>
+          <div> <Infection myRef={el => registerDOM(refMap,'infection',el)} data={curItemName}/> </div>
         </Step>
-        <Step data={4}>
-          <div> <Plotting myRef={el => registerDOM(refMap,'plotting',el)} data={currentStepIndex}/> </div>
+        <Step data={'plotting'}>
+          <div> <Plotting myRef={el => registerDOM(refMap,'plotting',el)} data={curItemName}/> </div>
         </Step>
-        <Step data={5}>
-          <div> <MultiLoc myRef={el => registerDOM(refMap,'multiloc',el)} data={currentStepIndex}/> </div>
+        <Step data={'multiloc'}>
+          <div> <MultiLoc myRef={el => registerDOM(refMap,'multiloc',el)} data={curItemName}/> </div>
         </Step>
-        <Step data={6}>
-          <div> <Graph myRef={el => registerDOM(refMap,'graph',el)} data={currentStepIndex}/> </div>
+        <Step data={'graph'}>
+          <div> <Graph myRef={el => registerDOM(refMap,'graph',el)} data={curItemName}/> </div>
         </Step>
-        <Step data={7}>
-          <div> <CityCountryside myRef={el => registerDOM(refMap,'citycountryside',el)} data={currentStepIndex}/> </div>
+        <Step data={'citycountryside'}>
+          <div> <CityCountryside myRef={el => registerDOM(refMap,'citycountryside',el)} data={curItemName}/> </div>
         </Step>
-        <Step data={8}>
-          <div> <Protecting myRef={el => registerDOM(refMap,'protecting',el)} data={currentStepIndex}/> </div>
+        <Step data={'protecting'}>
+          <div> <Protecting myRef={el => registerDOM(refMap,'protecting',el)} data={curItemName}/> </div>
         </Step>
-        <Step data={9}>
+        <Step data={'walkthroughs'}>
           <div> <Walkthroughs myRef={el => registerDOM(refMap,'walkthroughs',el)} /> </div>
         </Step>
-        <Step data={10}>
+        <Step data={null}>
           <div> <FullSim /> </div>
         </Step>
       </Scrollama>

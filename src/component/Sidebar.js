@@ -27,7 +27,7 @@ const useStyles = makeStyles((theme) => ({
   toolbar: theme.mixins.toolbar,
 }));
 
-function SidebarItem({ depthStep = 10, depth = 0, expanded, item, ...rest }) {
+function SidebarItem({ depthStep = 10, depth = 0, expanded, item, curItemName, ...rest }) {
 
   const classes = useStyles();
 
@@ -71,6 +71,7 @@ function SidebarItem({ depthStep = 10, depth = 0, expanded, item, ...rest }) {
         onClick={onClick}
         button
         dense
+        selected={curItemName === item.name && !items}
         {...rest}
       >
         <div
@@ -94,6 +95,7 @@ function SidebarItem({ depthStep = 10, depth = 0, expanded, item, ...rest }) {
                     depth={depth + 1}
                     depthStep={depthStep}
                     item={subItem}
+                    curItemName={curItemName}
                   />
                 )}
               </React.Fragment>
@@ -105,7 +107,7 @@ function SidebarItem({ depthStep = 10, depth = 0, expanded, item, ...rest }) {
   );
 }
 
-function Sidebar({ items, depthStep, depth, expanded, refMap }) {
+function Sidebar({ pageTree, depthStep, depth, expanded, refMap, curItemName }) {
   const classes = useStyles();
   //console.log('Here3');
   return (
@@ -113,7 +115,7 @@ function Sidebar({ items, depthStep, depth, expanded, refMap }) {
     <div className="sidebar">
       <Divider style={{ margin: "20px 0 6px 0" }} />
       <List disablePadding dense>
-        {items.current.map((sidebarItem, index) => (
+        {pageTree.current.map((sidebarItem, index) => (
           <React.Fragment key={`${sidebarItem.name}${index}`}>
             {sidebarItem === "divider" ? (
               <Divider style={{ margin: "6px 0" }} component="li"/>
@@ -123,6 +125,7 @@ function Sidebar({ items, depthStep, depth, expanded, refMap }) {
                 depth={depth}
                 expanded={expanded}
                 item={sidebarItem}
+                curItemName={curItemName}
               />
             )}
           </React.Fragment>

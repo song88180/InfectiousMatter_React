@@ -16,15 +16,13 @@ const useStyles = makeStyles((theme) => ({
 
 export default function Agents(props) {
   const classes = useStyles();
-  
-  
 
   return (
     <Box my={4} className={classes.root} minHeight={750} ref={props.myRef}>
       <Typography variant='h4'>
         Simple Agents in a Simple World
       </Typography>
-      <Fade in={props.data === 2} timeout={1200}>
+      <Fade in={props.data === 'agents'} timeout={1200}>
         <Typography variant='h5'>
           Each circle is an "Agent"
         </Typography>

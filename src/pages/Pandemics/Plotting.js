@@ -21,7 +21,7 @@ export default function Plotting(props) {
       <Typography variant='h4'>
         Plotting
       </Typography>
-      <Fade in={props.data === 4} timeout={1200}>
+      <Fade in={props.data === 'plotting'} timeout={1200}>
         <Typography variant='h5'>
           Because those little borders are hard to count
         </Typography>

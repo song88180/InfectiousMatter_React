@@ -21,7 +21,7 @@ export default function MultiLoc(props) {
       <Typography variant='h4'>
         Multiple Locations
       </Typography>
-      <Fade in={props.data === 5} timeout={1200}>
+      <Fade in={props.data === 'multiloc'} timeout={1200}>
         <Typography variant='h5'>
           We don't all live in one little box!
         </Typography>

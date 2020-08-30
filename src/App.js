@@ -1,4 +1,4 @@
-import React, {useRef, useEffect} from 'react';
+import React, {useRef, useEffect, useState} from 'react';
 import Typography from '@material-ui/core/Typography';
 import Box from '@material-ui/core/Box';
 import Link from '@material-ui/core/Link';
@@ -49,19 +49,18 @@ function Copyright() {
 export default function App() {
   const classes = useStyles();
   const refMap = useRef(new Map());
-  const items = useRef(null);
-  const curItemName = useRef(null); // the current name of item (where is the scrolling position)
+  const pageTree = useRef(null);
+  const [curItemName,setCurItemName] = useState(null); // the current name of item (where is the scrolling position)
 
   const scrollToRef = (e, item) => {
+    setCurItemName(item.name);
+    console.log(curItemName);
     if (refMap.current[item.name]) {
-      window.scrollTo(0, refMap.current[item.name].offsetTop);
-    }
-    else{
-      curItemName.current=item.name;
+      window.scrollTo(0, refMap.current[item.name].offsetTop-350);
     }
   }
 
-  items.current = [
+  pageTree.current = [
     {
       name: "opening",
       label: "Opening" ,
@@ -114,16 +113,16 @@ export default function App() {
     <IMApp>
       <Router>
         <Box className={classes.root}>
-          <Sidebar items={items} refMap={refMap} />
+          <Sidebar pageTree={pageTree} refMap={refMap} curItemName={curItemName} setCurItemName={setCurItemName}/>
           <Switch>
             <Route path='/pandemics'>
-              <Pandemics refMap={refMap} curItemName={curItemName}/>
+              <Pandemics refMap={refMap} curItemName={curItemName} setCurItemName={setCurItemName}/>
             </Route>
             <Route path='/growthmodel'>
-              <GrowthModel refMap={refMap} curItemName={curItemName}/>
+              <GrowthModel refMap={refMap} curItemName={curItemName} setCurItemName={setCurItemName}/>
             </Route>
             <Route path={'/'}>
-              <Opening refMap={refMap} curItemName={curItemName}/>
+              <Opening refMap={refMap} curItemName={curItemName} setCurItemName={setCurItemName}/>
             </Route>
           </Switch>
         </Box>

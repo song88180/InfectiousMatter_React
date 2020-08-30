@@ -21,7 +21,7 @@ export default function CityCountryside(props) {
       <Typography variant='h4'>
         City and Countryside
       </Typography>
-      <Fade in={props.data === 7} timeout={1200}>
+      <Fade in={props.data === 'citycountryside'} timeout={1200}>
         <Typography variant='h5'>
           Dense cities and more isolated rural areas are connected, and change the dynamics of disease spread
         </Typography>

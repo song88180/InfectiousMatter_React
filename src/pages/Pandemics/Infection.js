@@ -24,7 +24,7 @@ export default function Simulation(props) {
       <Typography variant='h4'>
         Infection
       </Typography>
-      <Fade in={props.data === 3} timeout={1200}>
+      <Fade in={props.data === 'infection'} timeout={1200}>
         <Typography variant='h5'>
           We can expose a few organisms in this population
         </Typography>

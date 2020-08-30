@@ -33,7 +33,7 @@ export default function WhyIMadeThis(props) {
   const [checked, setChecked] = useState(false);
 
   useEffect(() => {
-    if (props.data === 1){
+    if (props.data === 'whyimadethis'){
       setChecked(true);
     }
   },[props.data]);

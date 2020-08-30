@@ -38,13 +38,13 @@ function Copyright() {
   );
 }
 
-export default function GrowthModel({refMap, curItemName}) {
+export default function GrowthModel({refMap, curItemName, setCurItemName}) {
   const classes = useStyles();
   const [worldReadyTrigger, setWorldReadyTrigger] = useState(0);
   const [redraw_trigger, setRedrawTrigger] = useState(0);
-  const [currentStepIndex, setCurrentStepIndex] = useState(null);
   const onStepEnter = ({ data }) => {
-    setCurrentStepIndex(data);
+    setCurItemName(data);
+    console.log(data)
   };
 
   function registerDOM(refMap, _name, _ref){
@@ -53,10 +53,10 @@ export default function GrowthModel({refMap, curItemName}) {
   }
 
   useEffect(() => {
-    console.log(curItemName.current,'onload GrowthModel');
-    let curRef = refMap.current[curItemName.current];
+    console.log(curItemName,'onload GrowthModel');
+    let curRef = refMap.current[curItemName];
     if (curRef){
-      window.scrollTo(0, curRef.offsetTop);
+      window.scrollTo(0, curRef.offsetTop-350);
     }
     else {
       window.scrollTo(0, 0);
@@ -71,10 +71,10 @@ export default function GrowthModel({refMap, curItemName}) {
 
       <Author />
       <Scrollama offset={0.5} onStepEnter={onStepEnter} debug>
-        <Step data={0}>
+        <Step data={'exponential'}>
           <div> <Exponential myRef={el => registerDOM(refMap,'exponential',el)} /> </div>
         </Step>
-        <Step data={-1}>
+        <Step data={null}>
           <div style={{position:"sticky", top: 0, height:"400px", zIndex:20}}>
             <GrowthSimulation
               setWorldReadyTrigger={setWorldReadyTrigger}
@@ -83,7 +83,7 @@ export default function GrowthModel({refMap, curItemName}) {
             />
           </div>
         </Step>
-        <Step data={1}>
+        <Step data={'logistic'}>
           <div> <Logistic myRef={el => registerDOM(refMap,'logistic',el)} /> </div>
         </Step>
       </Scrollama>

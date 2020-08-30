@@ -21,7 +21,7 @@ export default function Simulation(props) {
       <Typography variant='h4'>
         Contact Graph
       </Typography>
-      <Fade in={props.data === 6} timeout={1200}>
+      <Fade in={props.data === 'graph'} timeout={1200}>
         <Typography variant='h5'>
           (The 7 Degrees of Disease Transmission)
         </Typography>

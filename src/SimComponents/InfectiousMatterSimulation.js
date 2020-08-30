@@ -5,8 +5,6 @@ import Button from '@material-ui/core/Button';
 import {IMContext} from '../SimComponents/IMApp';
 const Matter = require('matter-js');
 
-
-
 const InfectiousMatterSimulation = ({redraw_trigger, setWorldReadyTrigger, numMasked, divSize}) => {
     const sim_div = useRef(null);
     const { InfectiousMatterRef, InfectiousMatterAPI, InfectiousMatter} = useContext(IMContext);
