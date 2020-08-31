@@ -544,4 +544,74 @@ InfectiousMatter.prototype.new_migration_event = function() {
     }
 };
 
+InfectiousMatter.prototype.birth_death_event = function(
+    birth_per_agent_per_day = 10,
+    env_capacity = null
+) {
+    return () => {
+
+        if (this.agents.length > 200) return;
+        let birth_per_agent_per_sim = birth_per_agent_per_day / this.simulation_params.sim_time_per_day;
+        let birth_exp_N = birth_per_agent_per_sim * this.agents.length;
+        let birth_N = null;
+        let death_per_agent_per_sim = null;
+        let death_exp_N = null;
+        let death_N = null;
+        if (env_capacity) {
+            death_per_agent_per_sim = birth_per_agent_per_sim * this.agents.length / env_capacity;
+            death_exp_N = death_per_agent_per_sim * this.agents.length;
+            death_N = death_exp_N * this.agents.length;
+        }
+        let agent_list_temp = this.agents.slice();
+
+        if (Number.isInteger(birth_exp_N)) {
+            birth_N = birth_exp_N;
+        }
+        else {
+            if (Matter.Common.random(Math.floor(birth_exp_N),Math.ceil(birth_exp_N)) > birth_exp_N){
+                birth_N = Math.floor(birth_exp_N);
+            }
+            else birth_N = Math.ceil(birth_exp_N);
+        }
+
+        Matter.Common.shuffle(agent_list_temp);
+        let to_birth = agent_list_temp.slice(0,birth_N);
+
+        to_birth.forEach(agent => {
+            this.add_agent(agent.location)
+        })
+
+        if (env_capacity) {
+
+            if (Number.isInteger(death_exp_N)) {
+                death_N = death_exp_N;
+            } else {
+                if (Matter.Common.random(Math.floor(death_exp_N), Math.ceil(death_exp_N)) > death_exp_N) {
+                    death_N = Math.floor(death_exp_N);
+                } else death_N = Math.ceil(death_exp_N);
+            }
+
+            Matter.Common.shuffle(agent_list_temp);
+            let to_death = agent_list_temp.slice(0, death_N);
+
+            to_death.forEach(agent => {
+                World.remove(this.matter_engine.world, agent.body);
+                agent.location.occupants = agent.location.occupants.filter(function (a) {
+                    return (a !== agent)
+                });
+                agent.cohorts = agent.cohorts.filter(function (a) {
+                    return (a !== agent)
+                });
+                this.agents = this.agents.filter(function (a) {
+                    return (a !== agent)
+                });
+                agent = null;
+                this.state_counts[AgentStates.SUSCEPTIBLE] -= 1;
+            })
+        }
+        //console.log(birth_exp_N,birth_N, death_exp_N,death_N, this.agents.length, this.matter_engine.world.bodies);
+         //TODO: check if this link still makes sense, if not we should remove it...
+    }
+};
+
 export { InfectiousMatter, AgentStates, ContactGraph };

@@ -13,6 +13,11 @@ const useStyles = makeStyles((theme) => ({
   mainp: {
     margin: theme.spacing(3, 0, 3),
   },
+  formula: {
+    margin: theme.spacing(3, 0, 3),
+    fontWeight: "bold",
+    textAlign: "center",
+},
   img: {
     width: "100%",
     height: "auto",
@@ -39,10 +44,15 @@ export default function Exponential(props) {
         </Typography>
       </Fade>
       <Typography className={classes.mainp}>
-        At vero eos et accusamus et iusto odio dignissimos ducimus qui blanditiis praesentium voluptatum deleniti atque corrupti quos dolores et quas molestias excepturi sint occaecati cupiditate non provident, similique sunt in culpa qui officia deserunt mollitia animi, id est laborum et dolorum fuga. Et harum quidem rerum facilis est et expedita distinctio. Nam libero tempore, cum soluta nobis est eligendi optio cumque nihil impedit quo minus id quod maxime placeat facere possimus, omnis voluptas assumenda est, omnis dolor repellendus. Temporibus autem quibusdam et aut officiis debitis aut rerum necessitatibus saepe eveniet ut et voluptates repudiandae sint et molestiae non recusandae. Itaque earum rerum hic tenetur a sapiente delectus, ut aut reiciendis voluptatibus maiores alias consequatur aut perferendis doloribus asperiores repellat.
+        A biological population with plenty of food, space to grow, and no threat from predators, tends to grow at a rate that is proportional to the population -- that is, in each unit of time, a certain percentage of the individuals produce new individuals. If reproduction takes place more or less continuously, then this growth rate is represented by:
       </Typography>
+      <Typography className={classes.formula}> dP/dt = rP, </Typography>
       <Typography className={classes.mainp}>
-        quod maxime placeat facere possimus, omnis voluptas assumenda est, omnis dolor repellendus. Temporibus autem quibusdam et aut officiis debitis aut rerum necessitatibus saepe eveniet ut et voluptates repudiandae sint et molestiae non recusandae. Itaque earum rerum hic tenetur a sapiente delectus, ut aut reiciendis voluptatibus maiores alias consequatur aut perferendis doloribus asperiores repellat."
+        where P is the population as a function of time t, and r is the proportionality constant. We know that all solutions of this natural-growth equation have the form
+      </Typography>
+      <Typography className={classes.formula}> P(t) = P<sub>0</sub>e<sup>rt</sup>, </Typography>
+      <Typography className={classes.mainp}>
+        where P0 is the population at time t = 0. In short, unconstrained natural growth is exponential growth.
       </Typography>
     </Box>
   );

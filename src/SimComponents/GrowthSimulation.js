@@ -6,10 +6,10 @@ import {IMContext} from '../SimComponents/IMApp';
 const Matter = require('matter-js');
 
 
-const GrowthSimulation = ({redraw_trigger, setWorldReadyTrigger, numMasked, divSize}) => {
+const GrowthSimulation = ({redraw_trigger, setWorldReadyTrigger, numMasked, divSize,curItemName}) => {
     const sim_div = useRef(null);
     const { InfectiousMatterRef, InfectiousMatterAPI, InfectiousMatter} = useContext(IMContext);
-    const setup_world = (num_to_mask) => {
+    const setup_world = (birth_per_agent_per_day = 50, env_capacity = null) => {
         let res_prop = {
             type: "residence", 
             friction: 0.1,
@@ -29,8 +29,8 @@ const GrowthSimulation = ({redraw_trigger, setWorldReadyTrigger, numMasked, divS
         let res1 = InfectiousMatterAPI(InfectiousMatterRef, {type:'add_location', payload:{residence_props: res_prop}});
 
         InfectiousMatterAPI(InfectiousMatterRef, {type:'add_agents', payload:{residence: res1, num_agents: 10}});
-        
-        InfectiousMatterRef.current.add_event({time: 1000, callback: InfectiousMatterRef.current.new_migration_event(), recurring: true });
+
+        InfectiousMatterRef.current.add_event({time: 1000, callback: InfectiousMatterRef.current.birth_death_event( birth_per_agent_per_day, env_capacity), recurring: true });
         
         //shuffle the agents
         Matter.Common.shuffle(InfectiousMatterRef.current.agents);
@@ -94,8 +94,17 @@ const GrowthSimulation = ({redraw_trigger, setWorldReadyTrigger, numMasked, divS
 
     //redraw simulation if we get the triggers
     useLayoutEffect(()=> {
+        console.log('useLayoutEffect in GrowthSimulation', curItemName);
         if(InfectiousMatterRef.current) {
-            setup_world();
+            if (curItemName == 'exponential'){
+                InfectiousMatterAPI(InfectiousMatterRef, {type:'reset_simulator'});
+                setup_world(50,null);
+            }
+            else if (curItemName == 'logistic'){
+                InfectiousMatterAPI(InfectiousMatterRef, {type:'reset_simulator'});
+                setup_world(50, 100);
+            }
+
             setWorldReadyTrigger( c => c+1);
         }
     }, [redraw_trigger])
