@@ -337,19 +337,13 @@ InfectiousMatter.prototype._check_edge_for_removal = function(edge) {
     return () => {
         if (edge.data.timestamp < this.cur_sim_time - this.simulation_params.link_lifetime) {
             ContactGraph.removeLink(edge);
-
             let array = [];
-            ContactGraph.forEachLink(link=>{
-                array.push(link.id);
-            })
-            console.log('remove edge',edge.id);
-            console.log('first 5 link in queue',array.slice(0,5));
         } 
         else {
             this.add_event( {
                 time:(this.cur_sim_time + this.simulation_params.link_lifetime) - edge.data.timestamp,
                 callback: this._check_edge_for_removal(edge)
-            }); 
+            });
         }
     };
 };
@@ -386,13 +380,16 @@ InfectiousMatter.prototype._default_interaction_callback  = function(this_agent_
                 this_edge.data.timestamp = this.cur_sim_time;
             } else {
                 assert(ContactGraph.hasNode(this_agent_body.agent_object.uuid) && ContactGraph.hasNode(other_agent.uuid));
-                this_edge = ContactGraph.addLink(this_agent_body.agent_object.uuid, other_agent.uuid, {origin:this_agent_body.agent_object.uuid, timestamp:this.cur_sim_time});
-            }
+                this_edge = ContactGraph.addLink(this_agent_body.agent_object.uuid, other_agent.uuid, {
+                    origin: this_agent_body.agent_object.uuid,
+                    timestamp: this.cur_sim_time
+                });
 
-            this.add_event( {
-                time: this.simulation_params.link_lifetime+1, 
-                callback: this._check_edge_for_removal(this_edge)
-            });
+                this.add_event({
+                    time: this.simulation_params.link_lifetime + 1,
+                    callback: this._check_edge_for_removal(this_edge)
+                });
+            }
         }
     );
 };
