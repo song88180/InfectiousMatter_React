@@ -20,6 +20,7 @@ EventQueue.prototype.run_events_fired = function(cur_sim_time, event_limit) {
 	while (this.fast_queue.peek() && this.fast_queue.peek().time < cur_sim_time && num_events < event_limit){
 		var this_event = this.fast_queue.poll();
 		if (this_event.recurring) {
+			console.log('recurring');
 			this.add_event(cur_sim_time, {time:this_event.original_time, callback:this_event.callback, recurring:true});
 		}
 		this_event.callback();

@@ -93,7 +93,8 @@ const GrowthSimulation = ({redraw_trigger, setWorldReadyTrigger, numMasked, divS
         setup_world();
         //InfectiousMatterAPI(InfectiousMatterRef, {type:'reset_simulator'});
         return ()=>{
-            InfectiousMatterAPI(InfectiousMatterRef, {type:'reset_simulator'});
+            InfectiousMatterAPI(InfectiousMatterRef, {type:'clear_simulator'});
+
         }
     }, [])
 

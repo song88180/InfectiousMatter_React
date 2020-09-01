@@ -75,10 +75,10 @@ const InfectiousMatterSimulation = ({redraw_trigger, setWorldReadyTrigger, numMa
         let res3 = InfectiousMatterAPI(InfectiousMatterRef, {type:'add_location', payload:{residence_props: res_prop3}});
         let res4 = InfectiousMatterAPI(InfectiousMatterRef, {type:'add_location', payload:{residence_props: res_prop4}});
 
-        InfectiousMatterAPI(InfectiousMatterRef, {type:'add_agents', payload:{residence: res1, num_agents: 50}});
-        InfectiousMatterAPI(InfectiousMatterRef, {type:'add_agents', payload:{residence: res2, num_agents: 50}});
-        InfectiousMatterAPI(InfectiousMatterRef, {type:'add_agents', payload:{residence: res3, num_agents: 50}});
-        InfectiousMatterAPI(InfectiousMatterRef, {type:'add_agents', payload:{residence: res4, num_agents: 50}});
+        InfectiousMatterAPI(InfectiousMatterRef, {type:'add_agents', payload:{residence: res1, num_agents: 5}});
+        InfectiousMatterAPI(InfectiousMatterRef, {type:'add_agents', payload:{residence: res2, num_agents: 5}});
+        InfectiousMatterAPI(InfectiousMatterRef, {type:'add_agents', payload:{residence: res3, num_agents: 5}});
+        InfectiousMatterAPI(InfectiousMatterRef, {type:'add_agents', payload:{residence: res4, num_agents: 5}});
         
         InfectiousMatterRef.current.add_event({time: 1000, callback: InfectiousMatterRef.current.new_migration_event(), recurring: true });
         
@@ -148,7 +148,7 @@ const InfectiousMatterSimulation = ({redraw_trigger, setWorldReadyTrigger, numMa
         setup_world(numMasked);
         //InfectiousMatterAPI(InfectiousMatterRef, {type:'reset_simulator'});
         return ()=>{
-            InfectiousMatterAPI(InfectiousMatterRef, {type:'reset_simulator'});
+            InfectiousMatterAPI(InfectiousMatterRef, {type:'clear_simulator'});
         }
     }, [])
 

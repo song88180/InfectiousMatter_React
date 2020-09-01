@@ -337,6 +337,13 @@ InfectiousMatter.prototype._check_edge_for_removal = function(edge) {
     return () => {
         if (edge.data.timestamp < this.cur_sim_time - this.simulation_params.link_lifetime) {
             ContactGraph.removeLink(edge);
+
+            let array = [];
+            ContactGraph.forEachLink(link=>{
+                array.push(link.id);
+            })
+            console.log('remove edge',edge.id);
+            console.log('first 5 link in queue',array.slice(0,5));
         } 
         else {
             this.add_event( {
