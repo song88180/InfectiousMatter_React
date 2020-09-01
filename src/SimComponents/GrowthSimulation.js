@@ -6,10 +6,10 @@ import {IMContext} from '../SimComponents/IMApp';
 const Matter = require('matter-js');
 
 
-const GrowthSimulation = ({redraw_trigger, setWorldReadyTrigger, numMasked, divSize,curItemName}) => {
+const GrowthSimulation = ({redraw_trigger, setWorldReadyTrigger, numMasked, divSize,curItemName, birthRate, K}) => {
     const sim_div = useRef(null);
     const { InfectiousMatterRef, InfectiousMatterAPI, InfectiousMatter} = useContext(IMContext);
-    const setup_world = (birth_per_agent_per_day = 50, env_capacity = null) => {
+    const setup_world = (birthRate, K) => {
         let res_prop = {
             type: "residence", 
             friction: 0.1,
@@ -30,7 +30,13 @@ const GrowthSimulation = ({redraw_trigger, setWorldReadyTrigger, numMasked, divS
 
         InfectiousMatterAPI(InfectiousMatterRef, {type:'add_agents', payload:{residence: res1, num_agents: 10}});
 
-        InfectiousMatterRef.current.add_event({time: 1000, callback: InfectiousMatterRef.current.birth_death_event( birth_per_agent_per_day, env_capacity), recurring: true });
+        InfectiousMatterAPI(InfectiousMatterRef, {type:'update_growth_param', payload:{birthRate: birthRate, K: K}});
+
+        InfectiousMatterRef.current.add_event({
+            time: 1000,
+            callback: InfectiousMatterRef.current.birth_death_event(),
+            recurring: true
+        });
         
         //shuffle the agents
         Matter.Common.shuffle(InfectiousMatterRef.current.agents);
@@ -85,24 +91,26 @@ const GrowthSimulation = ({redraw_trigger, setWorldReadyTrigger, numMasked, divS
         InfectiousMatterAPI(InfectiousMatterRef, {type:'setup_environment', payload:{sim_div:sim_div}});
 
         setup_world();
-
         //InfectiousMatterAPI(InfectiousMatterRef, {type:'reset_simulator'});
         return ()=>{
             InfectiousMatterAPI(InfectiousMatterRef, {type:'reset_simulator'});
         }
     }, [])
 
+    useEffect(() => {
+        InfectiousMatterAPI(InfectiousMatterRef, {type:'update_growth_param', payload:{birthRate: birthRate, K: K}});
+    },[birthRate,K])
+
     //redraw simulation if we get the triggers
     useLayoutEffect(()=> {
-        console.log('useLayoutEffect in GrowthSimulation', curItemName);
         if(InfectiousMatterRef.current) {
             if (curItemName == 'exponential'){
                 InfectiousMatterAPI(InfectiousMatterRef, {type:'reset_simulator'});
-                setup_world(50,null);
+                setup_world(birthRate === undefined ? 0.05:birthRate,null);
             }
             else if (curItemName == 'logistic'){
                 InfectiousMatterAPI(InfectiousMatterRef, {type:'reset_simulator'});
-                setup_world(50, 100);
+                setup_world(birthRate === undefined ? 0.05:birthRate, K === undefined ? 100:K);
             }
 
             setWorldReadyTrigger( c => c+1);

@@ -11,10 +11,16 @@ const InfectiousMatterAPI = (InfectiousMatterRef, action) => {
     InfectiousMatterRef.current.clear_simulator();
     InfectiousMatterRef.current.setup_matter_env();
   }
+  if (action.type === 'clear_simulator') {
+    InfectiousMatterRef.current.clear_simulator();
+  }
   if (action.type === 'remove_simulator') {
     InfectiousMatterRef.current.remove_simulator();
   }
-
+  if (action.type === 'update_growth_param'){
+    InfectiousMatterRef.current.growth_params.birthRate = action.payload.birthRate;
+    InfectiousMatterRef.current.growth_params.K = action.payload.K;
+  }
 
   if (action.type === 'update_mask_transmission_params') {
     if (action.payload.self_protection) {

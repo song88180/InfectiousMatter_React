@@ -91,13 +91,19 @@ var default_simulation_colors = {
     matter_colors: ["darkmagenta", "lime", "yellow", "orange", "blue", "darkgrey", "fuchsia", "darkturquoise", "palegreen", "peru"]
 }
 
-function InfectiousMatter(run_headless, simulation_params, infection_params, simulation_colors) {   
+var default_growth_param = {
+    birthRate: 0,
+    K: 100
+}
+
+function InfectiousMatter(run_headless, simulation_params, infection_params, simulation_colors, growth_param) {
     this.simulation_params = Matter.Common.extend(default_simulation_params, simulation_params);
     this.infection_params = Matter.Common.extend(default_infection_params, infection_params);
     this.simulation_colors = Matter.Common.extend(default_simulation_colors, simulation_colors);
+    this.growth_params = Matter.Common.extend(default_growth_param, growth_param);
     this.matter_world = World.create() 
     this.headless = run_headless || false;
-    this.pathogen_color_range = pathogen_color_range;    
+    this.pathogen_color_range = pathogen_color_range;
 
     console.log("creating infectious matter environment!");
 
@@ -173,6 +179,7 @@ InfectiousMatter.prototype.setup_matter_env = function() {
 
     console.log('setup matter emv');
     ContactGraph.clear();
+
     this.locations = [];
     this.migration_graph.clear();
     this.location_uuid_hash = {};
@@ -544,21 +551,17 @@ InfectiousMatter.prototype.new_migration_event = function() {
     }
 };
 
-InfectiousMatter.prototype.birth_death_event = function(
-    birth_per_agent_per_day = 10,
-    env_capacity = null
-) {
+InfectiousMatter.prototype.birth_death_event = function() {
     return () => {
-
         if (this.agents.length > 200) return;
-        let birth_per_agent_per_sim = birth_per_agent_per_day / this.simulation_params.sim_time_per_day;
+        let birth_per_agent_per_sim = this.growth_params.birthRate / 2;
         let birth_exp_N = birth_per_agent_per_sim * this.agents.length;
         let birth_N = null;
         let death_per_agent_per_sim = null;
         let death_exp_N = null;
         let death_N = null;
-        if (env_capacity) {
-            death_per_agent_per_sim = birth_per_agent_per_sim * this.agents.length / env_capacity;
+        if (this.growth_params.K) {
+            death_per_agent_per_sim = birth_per_agent_per_sim * this.agents.length / this.growth_params.K;
             death_exp_N = death_per_agent_per_sim * this.agents.length;
             death_N = death_exp_N * this.agents.length;
         }
@@ -581,7 +584,7 @@ InfectiousMatter.prototype.birth_death_event = function(
             this.add_agent(agent.location)
         })
 
-        if (env_capacity) {
+        if (this.growth_params.K) {
 
             if (Number.isInteger(death_exp_N)) {
                 death_N = death_exp_N;
@@ -609,7 +612,7 @@ InfectiousMatter.prototype.birth_death_event = function(
                 this.state_counts[AgentStates.SUSCEPTIBLE] -= 1;
             })
         }
-        //console.log(birth_exp_N,birth_N, death_exp_N,death_N, this.agents.length, this.matter_engine.world.bodies);
+         // console.log(birth_exp_N,birth_N, death_exp_N,death_N, this.agents.length, this.growth_params);
          //TODO: check if this link still makes sense, if not we should remove it...
     }
 };

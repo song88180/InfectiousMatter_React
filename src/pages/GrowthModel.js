@@ -1,4 +1,4 @@
-import React, {useState, createRef, useEffect, useRef, useLayoutEffect} from 'react';
+import React, {useState, createRef, useEffect, useRef, useLayoutEffect, useContext} from 'react';
 //import { Scrollama, Step } from 'react-scrollama';
 import useScrollSpy from 'react-use-scrollspy';
 import Container from '@material-ui/core/Container';
@@ -12,6 +12,9 @@ import Exponential from "./GrowthModel/Exponential";
 import Logistic from "./GrowthModel/Logistic";
 import GrowthSimulation from "../SimComponents/GrowthSimulation";
 import GrowthPlot from "../SimComponents/GrowthPlot";
+import Slider from "@material-ui/core/Slider";
+import Button from "@material-ui/core/Button";
+import {IMContext} from '../SimComponents/IMApp';
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -40,10 +43,59 @@ function Copyright() {
   );
 }
 
+function BirthSlider({setBirthRate}){
+  const handleChange = (event,newValue) => {
+    setBirthRate(newValue);
+  }
+  return(
+    <Box mt={4}>
+        <Typography>{'Birth Rate:'}</Typography>
+        <Typography>{'(per agent per day)'}</Typography>
+        <Slider
+          defaultValue={0.05}
+          aria-labelledby="discrete-slider"
+          valueLabelDisplay="auto"
+          step={0.005}
+          marks
+          min={0}
+          max={0.1}
+          style={{width: 200}}
+          onChangeCommitted={handleChange}
+        />
+    </Box>
+  )
+}
+
+function KSlider({setK,curItemName}){
+  const handleChange = (event,newValue) => {
+    setK(newValue);
+  }
+  return(
+    <Box mt={4} display={curItemName == 'logistic' ? 'block':'none'}>
+      <Typography>{'K:'}</Typography>
+      <Typography>{'(environment capacity)'}</Typography>
+      <Slider
+        defaultValue={100}
+        aria-labelledby="discrete-slider"
+        valueLabelDisplay="auto"
+        step={10}
+        marks
+        min={0}
+        max={200}
+        style={{width: 200}}
+        onChangeCommitted={handleChange}
+      />
+    </Box>
+  )
+}
+
 export default function GrowthModel({refMap, curItemName, setCurItemName}) {
+  const { InfectiousMatterRef, InfectiousMatterAPI} = useContext(IMContext);
   const classes = useStyles();
   const [worldReadyTrigger, setWorldReadyTrigger] = useState(0);
   const [redraw_trigger, setRedrawTrigger] = useState(0);
+  const [birthRate, setBirthRate] = useState(0.05);
+  const [K, setK] = useState(100);
   const name_list = useRef(['exponential', 'logistic'])
 
   const sectionRefs = [
@@ -55,16 +107,20 @@ export default function GrowthModel({refMap, curItemName, setCurItemName}) {
     offsetPx: -500,
   });
 
-  useEffect(() => {
-    console.log('activeSection',activeSection);
-    setCurItemName(name_list.current[activeSection]);
-    setRedrawTrigger(c => c+1);
-  },[activeSection])
+  const resetSimulation = (e) => {
+    InfectiousMatterAPI(InfectiousMatterRef, {type: 'clear_simulator'});
+    setRedrawTrigger(c=>c+1);
+  }
 
   function registerDOM(refMap, _name, _ref){
     refMap.current[_name] = createRef();
     refMap.current[_name] = _ref;
   }
+
+  useEffect(() => {
+    setCurItemName(name_list.current[activeSection]);
+    resetSimulation();
+  },[activeSection])
 
   useEffect(() => {
     console.log(curItemName,'onload GrowthModel');
@@ -99,7 +155,14 @@ export default function GrowthModel({refMap, curItemName, setCurItemName}) {
           redraw_trigger={redraw_trigger}
           divSize={300}
           curItemName={curItemName}
+          birthRate={birthRate}
+          K={K}
         />
+        <div>
+          <BirthSlider setBirthRate={setBirthRate} />
+          <KSlider setK={setK} curItemName={curItemName}/>
+          <Button variant="contained" onClick={resetSimulation} color="primary">Reset</Button>
+        </div>
       </div>
       <div ref={sectionRefs[1]}> <Logistic myRef={el => registerDOM(refMap,'logistic',el)} /> </div>
 
